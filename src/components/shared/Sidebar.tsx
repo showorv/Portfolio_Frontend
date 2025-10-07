@@ -39,13 +39,14 @@ export default function Sidebar() {
       }
   }
   
+  
 
   return (
    
 
     <aside
       className={cn(
-        "h-screen bg-white dark:bg-gray-900 border-r border-gray-200 dark:border-gray-700 transition-all duration-300",
+        "min-h-screen bg-white dark:bg-gray-900 border-r border-gray-200 dark:border-gray-700 transition-all duration-300",
         collapsed ? "w-20" : "w-64"
       )}
     >
@@ -64,19 +65,23 @@ export default function Sidebar() {
       {/* Navigation */}
       <div className="flex flex-col gap-10">
       <nav className="mt-4 flex flex-col gap-1">
-        {navigation.map((item) => (
-          <Link
-            key={item.name}
-            href={item.href}
-            className={cn(
-              "flex items-center gap-3 p-3 rounded hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors",
-              collapsed ? "justify-center" : ""
-            )}
-          >
-            <item.icon className="w-5 h-5" />
-            {!collapsed && <span>{item.name}</span>}
-          </Link>
-        ))}
+        {navigation.map((item) => {
+          const isActive = pathname === item.href;
+          return (
+            <Link
+              key={item.name}
+              href={item.href}
+              className={cn(
+                "flex items-center gap-3 p-3 rounded hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors",
+                collapsed ? "justify-center" : "",
+                isActive ? "bg-gray-200 dark:bg-gray-700 font-semibold" : ""
+              )}
+            >
+              <item.icon className="w-5 h-5" />
+              {!collapsed && <span>{item.name}</span>}
+            </Link>
+          );
+        })}
       </nav>
       <Button
       className={cn(
@@ -87,7 +92,7 @@ export default function Sidebar() {
       onClick={handleLogout}
     >
       <LogOut className="w-5 h-5" />
-      {!collapsed && <span>Logout</span>} {/* Hide text when collapsed */}
+      {!collapsed && <span>Logout</span>} 
     </Button>
     </div>
     </aside>
