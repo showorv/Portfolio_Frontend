@@ -14,19 +14,18 @@ import {
   FormMessage,
 } from "@/components/ui/form"
 import { Input } from "@/components/ui/input"
-import { login } from "@/actions/login"
+
 import { toast } from "sonner"
 import { useRouter } from "next/navigation"
 import { Textarea } from "@/components/ui/textarea"
 import Upload from "@/components/shared/Upload"
-
-import { RadioGroup, RadioGroupItem } from "@radix-ui/react-radio-group"
 import { useState } from "react"
+import { createProject } from "@/actions/projectCreate"
 
-import { createBog } from "@/actions/createBlog"
 
 
-const blogFormSchema = z.object({
+
+const projectFormSchema = z.object({
     title: z
     .string({ message: "Title is required" })
     .trim()
@@ -35,62 +34,76 @@ const blogFormSchema = z.object({
    
     thumbnail: z.string().optional(),
 
-  content: z
-    .string({ message: "Content is required" })
-    .min(10, "Content must be at least 10 characters"),
-
-    tags: z.string().optional() ,
+     description: z
+    .string({ message: "Content is required" }),
+    
 
 
-  category: z.string().trim().optional(),
+    projectLink: z
+    .url().optional(),
 
-  isPublished: z.boolean().optional()
+    liveSite: z
+    .url().optional(),
+  
+
+
+    features: z.string().optional() ,
+
+
+    techStacks: z.string().optional(),
+
+
 })
 
-export function BlogForm() {
+export function ProjectForm() {
 
     const router = useRouter()
     const [image, setImage] = useState(null)
 
 
-    const form = useForm<z.infer<typeof blogFormSchema>>({
+    const form = useForm<z.infer<typeof projectFormSchema>>({
         defaultValues: {
             title: "",
             
-            content: "",
+            description: "",
        
-            category:",",
-            isPublished: true
+            liveSite:",",
+            projectLink:","
+           
         },
     })
 
 
-    const onSubmit = async (values: z.infer<typeof blogFormSchema>)=>{
+    const onSubmit = async (values: z.infer<typeof projectFormSchema>)=>{
 
         const formData = new FormData()
 
         formData.append("title", values.title);
-        formData.append("content", values.content);
-        formData.append("category", values.category || "");
-        formData.append("isPublished", String(values.isPublished));
-        formData.append("tags", values.tags?.split(",").map(t => t.trim()).join(",") || "");
+        formData.append("description", values.description);
+        formData.append("liveSite", values.liveSite || "");
+        formData.append("projectLink", values.projectLink || "");
+        formData.append("features", values.features?.split(",").map(t => t.trim()).join(",") || "");
+        formData.append("techStacks", values.techStacks?.split(",").map(t => t.trim()).join(",") || "");
+        
         if (image) {
             formData.append("file", image); 
           }
 
-          const toastid = toast.loading("Blog is creating")
+          const toastid = toast.loading("Project is creating")
         try {
-            const res = await createBog(formData)
+            const res = await createProject(formData)
 
             if(res.success){
-                toast.success("blog created successfully", {id:toastid})
+                toast.success("project created successfully", {id:toastid})
 
                 form.reset({
                     title: "",
-                    content: "",
-                    category: "",
-                    tags: "",
-                    isPublished: true,
+                    description: "",
+                    projectLink: "",
+                    liveSite: "",
+                    features: "",
+                    techStacks: "",
+                    
                     thumbnail: "",
                   });
             
@@ -98,8 +111,8 @@ export function BlogForm() {
                   setImage(null);
                 
             }else {
-              toast.error(res?.message || "blog creation failed!", { id: toastid });
-            }
+                toast.error(res?.message || "Project creation failed!", { id: toastid });
+              }
         } catch (error) {
             toast.error("failed")
             console.log(error);
@@ -117,7 +130,7 @@ export function BlogForm() {
           onSubmit={form.handleSubmit(onSubmit)}
           className="space-y-6 w-full max-w-md"
         >
-          <h2 className="text-3xl font-bold text-center ">Create Blog</h2>
+          <h2 className="text-3xl font-bold text-center ">Create Project</h2>
 
          
           <FormField
@@ -129,7 +142,7 @@ export function BlogForm() {
                 <FormControl>
                   <Input
                     type="text"
-                    placeholder="write the blog title"
+                    placeholder="write the project title"
                     {...field}
                   />
                 </FormControl>
@@ -144,14 +157,14 @@ export function BlogForm() {
          
           <FormField
             control={form.control}
-            name="content"
+            name="description"
             render={({ field }) => (
               <FormItem>
-                <FormLabel>Content</FormLabel>
+                <FormLabel>Description</FormLabel>
                 <FormControl>
                   <Textarea
                     
-                    placeholder="write the content"
+                    placeholder="write the description"
                     {...field}
                   />
                 </FormControl>
@@ -160,12 +173,12 @@ export function BlogForm() {
             )}
           />
 
-<FormField
+        <FormField
             control={form.control}
-            name="tags"
+            name="features"
             render={({ field }) => (
               <FormItem>
-                <FormLabel>Tags</FormLabel>
+                <FormLabel>Features</FormLabel>
                 <FormControl>
                   <Input
                     type="text"
@@ -179,14 +192,51 @@ export function BlogForm() {
           />
         <FormField
             control={form.control}
-            name="category"
+            name="techStacks"
             render={({ field }) => (
               <FormItem>
-                <FormLabel>Category</FormLabel>
+                <FormLabel>Tech Stacks</FormLabel>
                 <FormControl>
                   <Input
                     type="text"
-                    placeholder="Blog category"
+                    placeholder="eg: next,react"
+                    {...field}
+                  />
+                </FormControl>
+                <FormMessage />
+              </FormItem>
+            )}
+          />
+        <FormField
+            control={form.control}
+            name="projectLink"
+            render={({ field }) => (
+              <FormItem>
+                <FormLabel>Project Link</FormLabel>
+                <FormControl>
+                  <Input
+                    type="url"
+                    placeholder=""
+                    
+                    {...field}
+                  />
+                </FormControl>
+                <FormMessage />
+              </FormItem>
+            )}
+          />
+        <FormField
+            control={form.control}
+            name="liveSite"
+            render={({ field }) => (
+              <FormItem>
+                <FormLabel>Live Site</FormLabel>
+                <FormControl>
+                  <Input
+                    type="url"
+                    placeholder=""
+
+                 
                     {...field}
                   />
                 </FormControl>
@@ -195,37 +245,7 @@ export function BlogForm() {
             )}
           />
 
-<FormField
-  control={form.control}
-  name="isPublished"
-  render={({ field }) => (
-    <FormItem className="space-y-3">
-      <FormLabel>Publish Status</FormLabel>
-      <FormControl>
-        <RadioGroup
-          onValueChange={(value) => field.onChange(value === "true")}
-          value={field.value === true ? "true" : "false"}
-          className="flex flex-col space-y-2"
-        >
-          <label className="flex items-center space-x-3 cursor-pointer ">
-            <RadioGroupItem value="true"  className="w-5 h-5 rounded-full border border-gray-400 bg-white
-                         data-[state=checked]:bg-blue-500 data-[state=checked]:border-blue-500
-                         transition-colors"/>
-            <span className="font-normal">Published</span>
-          </label>
 
-          <label className="flex items-center space-x-3 cursor-pointer">
-            <RadioGroupItem value="false" className="w-5 h-5 rounded-full border border-gray-400 bg-white
-                         data-[state=checked]:bg-blue-500 data-[state=checked]:border-blue-500
-                         transition-colors" />
-            <span className="font-normal">Unpublished</span>
-          </label>
-        </RadioGroup>
-      </FormControl>
-      <FormMessage />
-    </FormItem>
-  )}
-/>
 
 
 

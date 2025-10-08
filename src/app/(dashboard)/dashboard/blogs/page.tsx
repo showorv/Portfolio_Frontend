@@ -1,7 +1,10 @@
+import BlogTable from '@/components/modules/blogs/BlogTable'
 import React from 'react'
 
 export default function BlogsPage() {
   return (
-    <div>Blogs</div>
+    <div>
+      <BlogTable />
+    </div>
   )
 }
