@@ -3,8 +3,11 @@
 
 
 import { deleteBlog, getBlog } from '@/actions/getBlog'
+import { deleteProject, getProject } from '@/actions/getProject'
+import { createProject } from '@/actions/projectCreate'
 import { Button } from '@/components/ui/button'
 import { IBlogs } from '@/types/blogTypes'
+import { IProject } from '@/types/projectTypes'
 import { Trash2 } from 'lucide-react'
 import { useRouter } from 'next/navigation'
 
@@ -12,60 +15,43 @@ import { useRouter } from 'next/navigation'
 import React, { useEffect, useState } from 'react'
 import { toast } from 'sonner'
 
-export default function BlogTable() {
-
-//   const page = 1
-//   const limit = 5
-// const [pages,setPages] = useState(1)
+export default function ProjectTable() {
 
 
+const [project, setProject] = useState<IProject[]>([]);
 
-//     // const res = await fetch(`${process.env.NEXT_PUBLIC_BACKEND_URL}/blog?page=${page}&limit=${limit}`, {
-//     //     next: {
-//     //         revalidate: 30
-//     //     }
-//     //   })
-    
-
-//     const result = await getBlog({limit,page})
-      
-    
-//       const {data:blogs, currentPage, metaData} = result
-
-//   const totalPages = metaData?.totalPage
-
-const [blogs, setBlogs] = useState<IBlogs[]>([]);
-const [page, setPages] = useState(1);
-const limit = 5;
 const [totalPages, setTotalPages] = useState(1);
+
 
 const router = useRouter()
 
-useEffect(() => {
-  const fetchBlogs = async () => {
-  
-    try {
-      const result = await getBlog({ limit, page });
-      const { data, metaData } = result;
-      setBlogs(data);
-      setTotalPages(metaData?.totalPage || 1);
-    } catch (err) {
-      console.error("Error fetching blogs:", err);
-    } 
-  };
 
-  fetchBlogs();
-}, [page]);
+const fetchProjects = async () => {
+    try {
+      const res = await getProject()
+      const { data, metaData } = res;
+      setProject(data)
+      setTotalPages(res.metaData?.total || 0)
+    } catch (err) {
+      console.error(err)
+    }
+  }
+
+  useEffect(() => {
+    fetchProjects()
+  }, [])
+
+
 
 
     const  handleDeleteBook=async (id: string)=>{
         if(window.confirm("Are you sure to delete this user?")){
 
-          const res = await deleteBlog(id);
+          const res = await deleteProject(id);
 
           if (res.success) {
             toast.success(res.message);
-            router.refresh(); 
+           fetchProjects()
            
           } else {
             toast.error(res.message);
@@ -75,13 +61,16 @@ useEffect(() => {
        
 
     }
-
-
+    const handleAddProject = async (newData:any) => {
+        await createProject(newData)
+        fetchProjects() 
+      }
+    
   return (
     <div className='max-w-7xl mx-auto p-6 min-h-screen'>
     <div className='flex justify-between items-center mb-6'>
-    <h2 className='text-md md:text-2xl font-bold '>All Blogs</h2>
-   
+    <h2 className='text-md md:text-2xl font-bold '>All Project</h2>
+    <p>Total: {totalPages}</p>
     </div>
     <div className='overflow-x-auto shadow-md shadow-white sm:rounded '>
         <table className='min-w-full text-left text-gray-200'>
@@ -89,19 +78,19 @@ useEffect(() => {
                 <tr>
                     <th className='py-2 px-4'>Title</th>
                     <th className='py-2 px-4'>Thumbnail</th>
-                    <th className='py-2 px-4'>Content</th>
-                    <th className='py-2 px-4'>Tags</th>
-                    <th className='py-2 px-4'>Category</th>
-                    <th className='py-2 px-4'>Views</th>
-                    <th className='py-2 px-4'>IsPublished</th>
+                    <th className='py-2 px-4'>Project Link</th>
+                    <th className='py-2 px-4'>Live Link</th>
+                    <th className='py-2 px-4'>Description</th>
+                    <th className='py-2 px-4'>Features</th>
+                    <th className='py-2 px-4'>Tech Stacks</th>
                     <th className='py-2 px-4'>Actions</th>
                 </tr>
             </thead>
 
             <tbody>
-                {blogs.length>0?
+                {project.length>0?
                 (
-                  blogs.map((product: IBlogs)=>{
+                  project.map((product: IProject)=>{
                         return(
                             <tr key={product._id}
                             className='border-b hover:bg-gray-200 dark:hover:bg-gray-900 cursor-pointer' >
@@ -115,11 +104,12 @@ useEffect(() => {
                                     />
                                   </a>
                                 </td>
-                                <td className='py-2 px-4 text-gray-950 dark:text-gray-200'>{product.content}</td>
-                                <td className='py-2 px-4 text-gray-950 dark:text-gray-200'>{Array.isArray(product.tags)?product.tags.join(","):product.tags}</td>
-                                <td className='py-2 px-4 text-gray-950 dark:text-gray-200'>{product.category}</td>
-                                <td className='py-2 px-4 text-gray-950 dark:text-gray-200'>{product.views}</td>
-                                <td className='py-2 px-4 text-gray-950 dark:text-gray-200'>{product.isPublished? "Yes": "No"}</td>
+                                <td className='py-2 px-4 text-gray-950 dark:text-gray-200'>{product.liveSite?product.liveSite: "N/A"}</td>
+                                <td className='py-2 px-4 text-gray-950 dark:text-gray-200'>{product.projectLink? product.projectLink : "N/A"}</td>
+                                <td className='py-2 px-4 text-gray-950 dark:text-gray-200'>{product.description}</td>
+                                <td className='py-2 px-4 text-gray-950 dark:text-gray-200'> {Array.isArray(product.features) ? product.features.join(", ") : product.features}</td>
+                                <td className='py-2 px-4 text-gray-950 dark:text-gray-200'>{Array.isArray(product.techStacks)? product.techStacks.join(","): product.techStacks}</td>
+                                {/* <td className='py-2 px-4 text-gray-950 dark:text-gray-200'>{product.isPublished? "Yes": "No"}</td> */}
                                 <td className='py-2 px-4 flex gap-2 text-gray-950 dark:text-gray-200'>
                                    
                                  {/* <UpdateBook book={product}/> */}
@@ -133,32 +123,13 @@ useEffect(() => {
                     })
                 ):(
                     <tr>
-                        <td colSpan={7} className='p-2 text-center text-gray-200'>No books avaiable</td>
+                        <td colSpan={8} className='p-2 text-center text-gray-200'>No books avaiable</td>
                     </tr>
                 )}
             </tbody>
         </table>
     </div>
 
-    <div className="flex justify-center items-center gap-4 mt-6">
-    <Button
-      variant="outline"
-      disabled={page === 1}
-      onClick={() => setPages((prev) => prev - 1)}
-    >
-      Previous
-    </Button>
-    <span className="text-black dark:text-white text-sm md:text-md">
-      Page {page} of {totalPages}
-    </span>
-    <Button
-      variant="outline"
-      disabled={page === totalPages}
-      onClick={() => setPages((prev) => prev + 1)}
-    >
-      Next
-    </Button>
-  </div>
 
 </div>
   )

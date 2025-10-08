@@ -35,7 +35,7 @@ const projectFormSchema = z.object({
     thumbnail: z.string().optional(),
 
      description: z
-    .string({ message: "Content is required" }),
+    .string({ message: "Content is required" }).min(10,"description must be min 10"),
     
 
 
@@ -103,7 +103,6 @@ export function ProjectForm() {
                     liveSite: "",
                     features: "",
                     techStacks: "",
-                    
                     thumbnail: "",
                   });
             
@@ -111,10 +110,10 @@ export function ProjectForm() {
                   setImage(null);
                 
             }else {
-                toast.error(res?.message || "Project creation failed!", { id: toastid });
+                toast.error(res?.message || "Project creation failed!");
               }
-        } catch (error) {
-            toast.error("failed")
+        } catch (error:any) {
+            toast.error("failed",error.message)
             console.log(error);
             
         }

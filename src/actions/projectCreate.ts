@@ -1,4 +1,4 @@
-
+"use server"
 
 export const createProject = async (data: FormData)=>{
 

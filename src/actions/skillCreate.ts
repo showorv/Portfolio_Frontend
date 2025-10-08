@@ -1,4 +1,5 @@
 
+"use server"
 
 export const skillCreate = async (data: FormData)=>{
     try {

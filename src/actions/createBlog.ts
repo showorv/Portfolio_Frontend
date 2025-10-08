@@ -1,19 +1,11 @@
-"use client";
 
+"use server"
 
-
+import { revalidateTag } from "next/cache";
 
 export const createBog = async (data: FormData) => {
   try {
-    // Read FormData once
-    // const entriesArray = Array.from(data.entries());
-    // const blogInfo = Object.fromEntries(entriesArray);
-
-    // const modifiedData = {
-    //   ...blogInfo,
-    //   tags: blogInfo.tags ? blogInfo.tags.toString().split(",").map(tag => tag.trim()) : [],
-    //   isPublished: Boolean(blogInfo.isPublished)
-    // };
+ 
 
     const res = await fetch(`${process.env.NEXT_PUBLIC_BACKEND_URL}/blog/create`, {
       method: "POST",
@@ -32,6 +24,9 @@ export const createBog = async (data: FormData) => {
 
     const result = await res.json();
 
+    // if(result){
+    //   revalidateTag("BLOGS")
+    // }
    
 
     return result;
@@ -40,3 +35,5 @@ export const createBog = async (data: FormData) => {
     throw err;
   }
 };
+
+
