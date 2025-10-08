@@ -1,29 +1,46 @@
-"use client"
+import { updateBlog } from "@/actions/getBlog";
+import Upload from "@/components/shared/Upload";
+import { Button } from "@/components/ui/button";
 
-import { useForm } from "react-hook-form"
-import {  z } from "zod"
-
-import { Button } from "@/components/ui/button"
+import {
+  Dialog,
+  DialogClose,
+  DialogContent,
+  DialogDescription,
+  DialogFooter,
+  DialogHeader,
+  DialogTitle,
+  DialogTrigger,
+} from "@/components/ui/dialog";
 import {
   Form,
   FormControl,
-
   FormField,
   FormItem,
   FormLabel,
   FormMessage,
-} from "@/components/ui/form"
-import { Input } from "@/components/ui/input"
-import { login } from "@/actions/login"
-import { toast } from "sonner"
-import { useRouter } from "next/navigation"
-import { Textarea } from "@/components/ui/textarea"
-import Upload from "@/components/shared/Upload"
+} from "@/components/ui/form";
+import { Input } from "@/components/ui/input";
+import { RadioGroupItem } from "@/components/ui/radio-group";
 
-import { RadioGroup, RadioGroupItem } from "@radix-ui/react-radio-group"
-import { useState } from "react"
+import { Textarea } from "@/components/ui/textarea";
+import { IBlogs } from "@/types/blogTypes";
+import { RadioGroup } from "@radix-ui/react-radio-group";
 
-import { createBog } from "@/actions/createBlog"
+
+import { Edit2 } from "lucide-react";
+
+
+
+import { useEffect, useState } from "react";
+
+import { useForm} from "react-hook-form";
+import { toast } from "sonner";
+import z from "zod";
+
+interface update{
+    blog:IBlogs
+}
 
 
 const blogFormSchema = z.object({
@@ -36,8 +53,8 @@ const blogFormSchema = z.object({
     thumbnail: z.string().optional(),
 
   content: z
-    .string({ message: "Content is required" }),
-    
+    .string({ message: "Content is required" })
+    .min(10, "Content must be at least 10 characters"),
 
     tags: z.string().optional() ,
 
@@ -47,13 +64,14 @@ const blogFormSchema = z.object({
   isPublished: z.boolean().optional()
 })
 
-export function BlogForm() {
-
-    const router = useRouter()
-    const [image, setImage] = useState(null)
+export function UpdateBlog({blog}:update) {
 
 
-    const form = useForm<z.infer<typeof blogFormSchema>>({
+  const [open, setOpen] = useState(false);
+  const [image, setImage] = useState(null)
+
+  const form = useForm<z.infer<typeof blogFormSchema>>({
+ 
         defaultValues: {
             title: "",
             
@@ -61,65 +79,74 @@ export function BlogForm() {
        
             category:",",
             isPublished: true
-        },
-    })
+          },
+        
+    
+  });
 
+  useEffect(() => {
+    form.reset({
+      title: blog?.title,
+      content: blog?.content,
+      thumbnail: blog?.thumbnail,
+      category: blog?.category,
+      tags: blog?.tags?.join(", ") || "",
+      isPublished: blog?.isPublished,
+    });
+  }, [blog, form]);
+ 
 
-    const onSubmit = async (values: z.infer<typeof blogFormSchema>)=>{
+  const onSubmit= async (values: z.infer<typeof blogFormSchema>) => {
+   
+    const formData = new FormData()
 
-        const formData = new FormData()
+    formData.append("title", values.title);
+    formData.append("content", values.content);
+    formData.append("category", values.category || "");
+    formData.append("isPublished", String(values.isPublished));
+    formData.append("tags", values.tags?.split(",").map(t => t.trim()).join(",") || "");
+    if (image) {
+        formData.append("file", image); 
+      }
 
-        formData.append("title", values.title);
-        formData.append("content", values.content);
-        formData.append("category", values.category || "");
-        formData.append("isPublished", String(values.isPublished));
-        formData.append("tags", values.tags?.split(",").map(t => t.trim()).join(",") || "");
-        if (image) {
-            formData.append("file", image); 
-          }
+      const toastid = toast.loading("Blog is updating")
+    try {
+        const res = await updateBlog(blog._id as string,formData)
 
-          const toastid = toast.loading("Blog is creating")
-        try {
-            const res = await createBog(formData)
+        if(res.success){
+            toast.success("blog updated successfully", {id:toastid})
 
-            if(res.success){
-                toast.success("blog created successfully", {id:toastid})
-
-                form.reset({
-                    title: "",
-                    content: "",
-                    category: "",
-                    tags: "",
-                    isPublished: true,
-                    thumbnail: "",
-                  });
+              setOpen(false);
+             
+              setImage(null);
             
-                 
-                  setImage(null);
-                
-            }else {
-              toast.error(res?.message || "blog creation failed!", { id: toastid });
-            }
-        } catch (error) {
-            toast.error("failed")
-            console.log(error);
-            
+        }else {
+          toast.error(res?.message || "blog creation failed!", { id: toastid });
         }
-     
+    } catch (error) {
+        toast.error("failed")
+        console.log(error);
         
     }
 
-  return (
-    <div className="flex justify-center items-center bg-muted-background min-h-screen ">
-    <div className="space-y-6 w-full max-w-md p-8 rounded-lg shadow-md">
-      <Form {...form}>
-        <form
-          onSubmit={form.handleSubmit(onSubmit)}
-          className="space-y-6 w-full max-w-md"
-        >
-          <h2 className="text-3xl font-bold text-center ">Create Blog</h2>
+ 
+  };
 
-         
+
+
+
+  return (
+    <Dialog open={open} onOpenChange={setOpen}>
+      <DialogTrigger asChild>
+        <Button className=' cursor-pointer hover:scale-50' variant={'outline'}><Edit2 className='text-yellow-500'/></Button>
+      </DialogTrigger>
+      <DialogContent className="sm:max-w-[425px]">
+        <DialogHeader>
+          <DialogTitle>Update your book</DialogTitle>
+          <DialogDescription>change the field</DialogDescription>
+        </DialogHeader>
+        <Form {...form}>
+          <form onSubmit={form.handleSubmit(onSubmit)}>
           <FormField
             control={form.control}
             name="title"
@@ -227,16 +254,19 @@ export function BlogForm() {
   )}
 />
 
-
-
-          <Button type="submit" className="w-full mt-2 cursor-pointer">
-            Create
-          </Button>
-
-        </form>
-      </Form>
-  
-    </div>
-  </div>
-  )
+            <DialogFooter>
+              <DialogClose asChild>
+                <Button variant="outline" className="mt-5 cursor-pointer">
+                  Cancel
+                </Button>
+              </DialogClose>
+              <Button type="submit" className="mt-5 cursor-pointer">
+               Update Book
+              </Button>
+            </DialogFooter>
+          </form>
+        </Form>
+      </DialogContent>
+    </Dialog>
+  );
 }

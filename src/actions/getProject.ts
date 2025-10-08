@@ -1,8 +1,12 @@
 
-"use server" 
+"use server"
+import { revalidateTag } from "next/cache"
+
+ 
 
 export const getProject = async ()=>{
     const res = await fetch(`${process.env.NEXT_PUBLIC_BACKEND_URL}/project`, {
+      next: {tags: ["projects"]},
         cache: "no-store",
       })
 
@@ -29,5 +33,32 @@ export const deleteProject = async (id: string)=>{
 
 
       return result
+
+}
+
+export const updateProject = async (id: string, data: FormData)=>{
+
+  const res = await fetch(`${process.env.NEXT_PUBLIC_BACKEND_URL}/project/${id}`, {
+     method: "PATCH",
+     body: data,
+     credentials: "include",
+    
+    })
+
+    if(!res.ok){
+      const errorText = await res.text();
+      console.error("Error in update project:", errorText);
+    }
+
+
+
+    const result = await res.json()
+
+    if(result){
+      revalidateTag("projects")
+    }
+
+
+    return result
 
 }

@@ -11,6 +11,7 @@ import { useRouter } from 'next/navigation'
 
 import React, { useEffect, useState } from 'react'
 import { toast } from 'sonner'
+import { UpdateBlog } from './updateBlogForm'
 
 export default function BlogTable() {
 
@@ -122,7 +123,7 @@ useEffect(() => {
                                 <td className='py-2 px-4 text-gray-950 dark:text-gray-200'>{product.isPublished? "Yes": "No"}</td>
                                 <td className='py-2 px-4 flex gap-2 text-gray-950 dark:text-gray-200'>
                                    
-                                 {/* <UpdateBook book={product}/> */}
+                                <UpdateBlog blog={product}/>
                                     <Button className='cursor-pointer hover:scale-50' variant={'outline'} onClick={()=> handleDeleteBook(product._id as string)}><Trash2 className='text-red-500'/></Button>
                                 
                                
@@ -133,7 +134,7 @@ useEffect(() => {
                     })
                 ):(
                     <tr>
-                        <td colSpan={7} className='p-2 text-center text-gray-200'>No books avaiable</td>
+                        <td colSpan={7} className='p-2 text-center text-gray-200'>No Blogs avaiable</td>
                     </tr>
                 )}
             </tbody>

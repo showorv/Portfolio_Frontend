@@ -68,7 +68,7 @@ const fetchSkill = async () => {
   return (
     <div className='max-w-7xl mx-auto p-6 min-h-screen'>
     <div className='flex justify-between items-center mb-6'>
-    <h2 className='text-md md:text-2xl font-bold '>All Project</h2>
+    <h2 className='text-md md:text-2xl font-bold '>All Skill</h2>
     <p>Total: {totalPages}</p>
     </div>
     <div className='overflow-x-auto shadow-md shadow-white sm:rounded '>
