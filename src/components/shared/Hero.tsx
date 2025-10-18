@@ -10,7 +10,7 @@ export default function Hero() {
       className="min-h-screen flex flex-col justify-center items-center text-center relative bg-gradient-to-b from-gray-900 via-black to-gray-900"
     >
 
-        <div className="container max-w-7xl  mx-auto flex flex-col md:flex-row items-center px-6 gap-10">
+
       <motion.div
         initial={{ opacity: 0, y: 40 }}
         animate={{ opacity: 1, y: 0 }}
@@ -37,25 +37,9 @@ export default function Hero() {
         </div>
       </motion.div>
 
-      <motion.div
-          initial={{ opacity: 0, x: 30 }}
-          animate={{ opacity: 1, x: 0 }}
-          transition={{ duration: 0.6 }}
-          className="flex-1 flex justify-center"
-        >
-          <div className="relative w-64 h-64 md:w-80 md:h-80 rounded-full overflow-hidden border-4 border-primary shadow-lg">
-            <Image
-              src="/logo.png"
-              alt="Yousuf Showrov"
-              fill
-              className="object-cover"
-              priority
+ 
 
-            />
-          </div>
-        </motion.div>
 
-        </div>
 
 
     </section>

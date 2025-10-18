@@ -77,8 +77,9 @@ export default function Navbar() {
             <div className="flex flex-col items-center py-4 gap-4">
               {links.map((link) => (
                 <a
+                
                   key={link}
-                  href={`${link.toLowerCase()}`}
+                  href={`#${link.toLowerCase()}`}
                   className="text-muted-foreground hover:text-foreground transition-colors text-lg"
                   onClick={() => setMenuOpen(false)}
                 >

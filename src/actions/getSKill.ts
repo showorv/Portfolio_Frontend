@@ -31,3 +31,5 @@ export const deleteSkill = async (id: string)=>{
       return result
 
 }
+
+

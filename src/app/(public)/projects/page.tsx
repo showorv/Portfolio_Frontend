@@ -1,7 +1,10 @@
+import Projects from '@/components/shared/ProjectSection'
 import React from 'react'
 
 export default function ProjectPage() {
   return (
-    <div>Project</div>
+    <div>
+      <Projects />
+    </div>
   )
 }
