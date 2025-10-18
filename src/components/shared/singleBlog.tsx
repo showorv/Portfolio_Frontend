@@ -1,7 +1,5 @@
 "use client";
 
-
-
 import { motion } from "framer-motion";
 import { IBlogs } from "@/types/blogTypes";
 import SectionTitle from "../ui/SectionTitle";
@@ -24,14 +22,14 @@ export default function SingleBlog({blog}: {blog: IBlogs}) {
     viewport={{ once: true }}
     transition={{ duration: 0.5 }}
   >
-    {/* Blog Title + Category */}
+
     <SectionTitle
       title={blog.title}
       subtitle={`Category: ${blog.category || "Uncategorized"}`}
     />
 
 
-    {/* Meta Info */}
+
     <div className="flex flex-wrap items-center gap-4 text-sm text-muted-foreground mb-6">
       {blog.publishedAt && (
         <p>
@@ -59,7 +57,7 @@ export default function SingleBlog({blog}: {blog: IBlogs}) {
       )}
     </div>
 
-    {/* Thumbnail */}
+
     {blog.thumbnail && (
       <img
         src={blog.thumbnail}
@@ -67,7 +65,7 @@ export default function SingleBlog({blog}: {blog: IBlogs}) {
         className="w-full h-64 object-cover rounded-md mb-6"
       />
     )}
-    {/* Content */}
+
     <div
       className="prose dark:prose-invert max-w-full"
       dangerouslySetInnerHTML={{ __html: blog.content }}

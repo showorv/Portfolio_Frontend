@@ -36,7 +36,7 @@ export default async function Home() {
     </div>
     <section id="blogs" className=" bg-background/50">
       <div className="max-w-7xl mx-auto px-6 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-      {blogs.slice(0,3).map((blog: any)=><BlogCard key={blog.id} post={blog} />)}  
+      {blogs.slice(0,3).map((blog: any)=><BlogCard key={blog._id} post={blog} />)}  
       </div>
       </section>
   

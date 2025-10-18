@@ -5,6 +5,7 @@ import { motion, AnimatePresence } from "framer-motion";
 import { Button } from "@/components/ui/button";
 import { Menu, X } from "lucide-react";
 import { ModeToggle } from "../Toggle";
+import Link from "next/link";
 
 
 export default function Navbar() {
@@ -17,7 +18,13 @@ export default function Navbar() {
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
-  const links = ["Home", "Projects", "Blogs", "About", "Contact"];
+  const links = [
+    { name: "Home", href: "/" },
+    { name: "Projects", href: "/projects" },
+    { name: "Blogs", href: "/blogs" },
+    { name: "About", href: "/#about" },
+    { name: "Contact", href: "/#contact" },
+  ];
 
   return (
     <motion.nav
@@ -37,15 +44,16 @@ export default function Navbar() {
 
        
         <div className="hidden md:flex items-center gap-6">
-          {links.map((link) => (
-            <a
-              key={link}
-              href={`${link.toLowerCase()}`}
-              className="text-muted-foreground hover:text-foreground transition-colors"
-            >
-              {link}
-            </a>
-          ))}
+        {links.map(({ name, href }) => (
+          <Link
+            key={name}
+            href={href}
+            scroll={true}
+            className="text-muted-foreground hover:text-foreground transition-colors"
+          >
+            {name}
+          </Link>
+        ))}
           <Button className="bg-gradient-to-r from-indigo-500 to-purple-500 text-white">
             Hire Me
           </Button>
@@ -75,17 +83,16 @@ export default function Navbar() {
             className="md:hidden bg-background/90 backdrop-blur-md border-t border-border"
           >
             <div className="flex flex-col items-center py-4 gap-4">
-              {links.map((link) => (
-                <a
-                
-                  key={link}
-                  href={`#${link.toLowerCase()}`}
-                  className="text-muted-foreground hover:text-foreground transition-colors text-lg"
-                  onClick={() => setMenuOpen(false)}
-                >
-                  {link}
-                </a>
-              ))}
+            {links.map(({ name, href }) => (
+            <Link
+              key={name}
+              href={href}
+              scroll={true}
+              className="text-muted-foreground hover:text-foreground transition-colors"
+            >
+              {name}
+            </Link>
+))}
               <Button className="bg-gradient-to-r from-indigo-500 to-purple-500 text-white w-[80%]">
                 Hire Me
               </Button>

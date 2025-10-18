@@ -98,7 +98,7 @@ export default function Contact() {
           </form>
         </div>
 
-        {/* Optional: Social links */}
+
         <div className="mt-10 flex justify-center gap-6">
           <a href="https://github.com/YousufShowrov" target="_blank" rel="noopener noreferrer" className="text-muted-foreground hover:text-primary transition">
             GitHub
