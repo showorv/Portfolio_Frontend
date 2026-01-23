@@ -54,7 +54,7 @@ export default function Navbar() {
             {name}
           </Link>
         ))}
-          <Button className="bg-gradient-to-r from-indigo-500 to-purple-500 text-white">
+          <Button className="bg-primary cursor-pointer">
             Hire Me
           </Button>
           <ModeToggle />

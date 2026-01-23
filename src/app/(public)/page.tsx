@@ -2,10 +2,12 @@ import About from "@/components/shared/AboutMe";
 import BlogCard from "@/components/shared/BlogCard";
 
 import Contact from "@/components/shared/Contact";
+import Education from "@/components/shared/Education";
 import Footer from "@/components/shared/Footer";
 import Hero from "@/components/shared/Hero";
 import Navbar from "@/components/shared/Navbar/Navbar";
 import Projects from "@/components/shared/ProjectSection";
+import Skills from "@/components/shared/Skill";
 import { ModeToggle } from "@/components/shared/Toggle";
 import SectionTitle from "@/components/ui/SectionTitle";
 import { Button } from "@/components/ui/button";
@@ -23,10 +25,11 @@ export default async function Home() {
     <div className="min-h-dvh ">
 
       <Hero />
-      <Projects />
+ 
       <About />
-
-
+      <Skills />
+      <Education />
+      <Projects />
       <SectionTitle title="My Blogs" subtitle="Read my latest articles" />
       <div className="max-w-7xl mx-auto px-6 flex justify-end mb-8">
     <Link href="/blogs">

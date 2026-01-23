@@ -9,105 +9,83 @@ import { ISkill } from "@/types/skillTypes";
 import { getSkill } from "@/actions/getSKill";
 
 export default function About() {
-  const [skills, setSkills] = useState<ISkill[]>([]);
-
-  useEffect(() => {
-    const getSkills = async () => {
-      try {
-        const response = await getSkill();
-        setSkills(response.data);
-      } catch (error) {
-        console.error("Failed to fetch skills:", error);
-      }
-    };
-    getSkills();
-  }, []);
+ 
 
   return (
-    <section id="about" className="py-20 bg-background/50">
-      <SectionTitle title="About Me" subtitle="Get to know me better" />
-
-      <div className="max-w-7xl mx-auto px-6 flex flex-col md:flex-row items-center gap-12">
-        {/* Left: Bio */}
-        <motion.div
-          initial={{ opacity: 0, x: -20 }}
-          whileInView={{ opacity: 1, x: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.5 }}
-          className="flex-1 space-y-6"
-        >
-          <h3 className="text-2xl font-semibold text-foreground">Hello! I’m Yousuf Showrov</h3>
-          <p className="text-muted-foreground leading-relaxed">
-            I’m a passionate full-stack developer with experience in building modern web applications using
-            React, Next.js, Node.js, MongoDB, and cloud technologies. I enjoy turning ideas into functional,
-            beautiful, and performant web apps.
+    <section id="about" className="scroll-mt-32 py-10 bg-background">
+      {/* ---------- Header ---------- */}
+      {/* <div className="max-w-7xl mx-auto px-6 mb-10">
+        <div className="flex flex-col gap-4">
+          <h1 className="text-4xl md:text-5xl font-black leading-tight tracking-tight">
+            About Me
+          </h1>
+          <p className="text-muted-foreground text-lg max-w-2xl">
+            A journey from curiosity to code, with a passion for building
+            scalable web solutions.
           </p>
-          <p className="text-muted-foreground leading-relaxed">
-            I create scalable, user-friendly solutions and enjoy learning new technologies to stay ahead in the fast-paced world of web development.
-          </p>
-        </motion.div>
+        </div>
+      </div> */}
+      <SectionTitle title="About Me" subtitle=" A journey from curiosity to code, with a passion for building
+            scalable web solutions." />
 
-        {/* Right: Image */}
-        <motion.div
-          initial={{ opacity: 0, x: 20 }}
-          whileInView={{ opacity: 1, x: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.5 }}
-          className="flex-1 flex justify-center"
-        >
-          <div className="relative w-64 h-64 md:w-80 md:h-80 rounded-full overflow-hidden border-4 border-primary shadow-lg">
-            <Image
-              src="/logo.png" // your image path
-              alt="Yousuf Showrov"
-              fill
-              className="object-cover"
-              priority
-            />
-          </div>
-        </motion.div>
-      </div>
-
-      {/* Skills below */}
-      {/* <motion.div
-        initial={{ opacity: 0, y: 20 }}
+      {/* ---------- Main Card ---------- */}
+      <motion.div
+        initial={{ opacity: 0, y: 30 }}
         whileInView={{ opacity: 1, y: 0 }}
         viewport={{ once: true }}
-        transition={{ duration: 0.5 }}
-        className="mt-10 flex flex-wrap justify-center gap-3 px-6"
+        transition={{ duration: 0.6 }}
+        className="max-w-7xl mx-auto px-6"
       >
-        {skills.map((skill) => (
-          <div
-            key={skill._id}
-            className="bg-gradient-to-r from-indigo-500 via-purple-500 to-pink-500 text-white px-3 py-1 rounded-md text-sm font-medium shadow-md"
-          >
-            {skill.name}
+        <div className="flex flex-col xl:flex-row rounded-2xl shadow-xl bg-card border border-border overflow-hidden">
+          {/* ---------- Left: Image ---------- */}
+          <div className="relative w-full xl:w-1/2 aspect-video xl:aspect-auto min-h-[280px]">
+            <Image
+              src="/logo.png"
+              alt="Yousuf Showrov"
+              fill
+              priority
+              className="object-cover"
+            />
           </div>
-        ))}
-      </motion.div> */}
 
-<motion.div
-  initial={{ opacity: 0, y: 20 }}
-  whileInView={{ opacity: 1, y: 0 }}
-  viewport={{ once: true }}
-  transition={{ duration: 0.5 }}
-  className="mt-10 flex flex-wrap justify-center gap-3 px-6"
->
-  {skills.map((skill) => (
-    <div
-      key={skill._id}
-      className="flex items-center justify-center bg-black py-2 rounded-md text-sm "
-    >
-      {skill.thumbnail && (
-        <img
-          src={skill.thumbnail} 
-          alt={skill.name}
-          className="w-20 h-20 object-contain"
-        />
-      )}
+          {/* ---------- Right: Content ---------- */}
+          <div className="flex w-full min-w-72 grow flex-col justify-center gap-6 p-8 md:p-10">
+            <div className="space-y-4">
+              <h3 className="text-2xl font-bold">My Story</h3>
 
-    </div>
-  ))}
-</motion.div>
+              <p className="text-muted-foreground text-base leading-relaxed">
+                I started my programming journey with curiosity about how the
+                web works, which quickly turned into a passion for building
+                real-world applications. Over time, I’ve grown into a
+                full-stack developer who enjoys creating scalable, maintainable
+                and user-focused digital products.
+              </p>
+
+              <p className="text-muted-foreground text-base leading-relaxed">
+                Outside of coding, you’ll find me in the gym pushing my limits
+                or exploring new technologies. I believe consistency,
+                discipline, and continuous learning are the foundations of both
+                great fitness and great engineering.
+              </p>
+            </div>
+
+            {/* ---------- Personality Badges ---------- */}
+            <div className="flex flex-wrap gap-3 pt-4">
+              <div className="flex items-center gap-2 px-3 py-1.5 rounded-full bg-primary/10 text-primary text-xs font-bold uppercase tracking-wider">
+                💪 Fitness Enthusiast
+              </div>
+              <div className="flex items-center gap-2 px-3 py-1.5 rounded-full bg-primary/10 text-primary text-xs font-bold uppercase tracking-wider">
+                ☕ Coffee Powered
+              </div>
+              <div className="flex items-center gap-2 px-3 py-1.5 rounded-full bg-primary/10 text-primary text-xs font-bold uppercase tracking-wider">
+                🚀 Growth Mindset
+              </div>
+            </div>
+          </div>
+        </div>
+      </motion.div>
+
+   
     </section>
   );
 }

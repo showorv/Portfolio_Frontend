@@ -11,14 +11,17 @@ export default function SectionTitle({
 }) {
   return (
     <div className="text-center mb-10">
-      <motion.h2
+      {/* Title with bold line beside */}
+      <motion.div
         initial={{ opacity: 0, y: 20 }}
         whileInView={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.5 }}
-        className="text-3xl font-bold mb-2"
+        className="flex items-center justify-center gap-3 mb-2"
       >
-        {title}
-      </motion.h2>
+        {/* Bold colored line */}
+        <div className="h-8 w-1.5 bg-primary rounded-full"></div>
+        <h2 className="text-3xl font-bold">{title}</h2>
+      </motion.div>
 
       {subtitle && (
         <motion.p
