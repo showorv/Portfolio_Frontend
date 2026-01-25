@@ -44,7 +44,7 @@ export default function Contact() {
   };
 
   return (
-    <section id="contact" className="mx-auto max-w-7xl px-6 py-20 lg:py-32">
+    <section id="contact" className="mx-auto max-w-7xl px-6 py-10 lg:py-20">
        <SectionTitle title="Contact Me" subtitle="Get in touch with me" />
       <div className="grid grid-cols-1 gap-16 lg:grid-cols-2">
         {/* Left Column: Contact Info */}

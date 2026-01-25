@@ -16,6 +16,16 @@ export default function Hero() {
     }, 2200);
     return () => clearInterval(interval);
   }, []);
+  const handleDownloadResume = () => {
+    // const link = document.createElement("a");
+    // link.href = "/resume.pdf"; // place resume.pdf inside /public
+    // link.download = "Yousuf_Showrov_Resume.pdf";
+    // document.body.appendChild(link);
+    // link.click();
+    // document.body.removeChild(link);
+
+   window.alert("Resume not available yet. Will update soon!")
+  };
 
   return (
     <section
@@ -65,18 +75,20 @@ export default function Hero() {
               </p>
             </div>
 
-            {/* ---------------- CTA Buttons ---------------- */}
+     
             <div className="flex flex-wrap justify-center lg:justify-start items-center gap-4">
               <Button
                 size="lg"
+                onClick={handleDownloadResume}
                 className="rounded-xl px-8 py-6 text-base font-bold shadow-xl shadow-primary/20"
+                
               >
                 Download Resume
               </Button>
 
              
                <Link
-                href="https://github.com/yourusername"
+                href="https://github.com/showorv"
                 target="_blank"
                 className="w-12 h-12 flex items-center justify-center rounded-xl bg-muted hover:bg-primary/10 hover:text-primary border border-transparent hover:border-primary/30 transition-all"
               >
@@ -119,7 +131,7 @@ export default function Hero() {
               </Link>
             </div>
 
-            {/* ---------------- Social Icons ---------------- */}
+
             <div className="flex justify-center lg:justify-start items-center gap-3">
               <Link href="#projects">
                 <Button variant="outline" size="lg" className="rounded-xl">

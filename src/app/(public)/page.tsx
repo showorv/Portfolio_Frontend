@@ -30,7 +30,7 @@ export default async function Home() {
       <Skills />
       <Education />
       <Projects />
-      <SectionTitle title="My Blogs" subtitle="Read my latest articles" />
+      {/* <SectionTitle title="My Blogs" subtitle="Read my latest articles" />
       <div className="max-w-7xl mx-auto px-6 flex justify-end mb-8">
     <Link href="/blogs">
       <Button variant="outline">See All</Button>
@@ -41,7 +41,7 @@ export default async function Home() {
       <div className="max-w-7xl mx-auto px-6 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
       {blogs.slice(0,3).map((blog: any)=><BlogCard key={blog._id} post={blog} />)}  
       </div>
-      </section>
+      </section> */}
   
 
     <Contact />

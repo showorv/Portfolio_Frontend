@@ -74,7 +74,7 @@ export default function Education() {
 
               <ul className="space-y-2"> 
                 {edu.details.map((detail, index) => (
-                  <li key={index} className="flex items-start gap-3 text-slate-600 dark:text-[#92a4c9] text-sm">
+                  <li key={index} className="flex items-start gap-3 text-slate-600 dark:text-[#92a4c9] text-[12px]">
                     <span className="text-primary">
                       <svg className="w-4 h-4" fill="currentColor" viewBox="0 0 24 24">
                         <path d="M9 12l2 2 4-4" />

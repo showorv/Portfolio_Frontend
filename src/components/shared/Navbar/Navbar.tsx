@@ -20,9 +20,11 @@ export default function Navbar() {
 
   const links = [
     { name: "Home", href: "/" },
-    { name: "Projects", href: "/projects" },
-    { name: "Blogs", href: "/blogs" },
     { name: "About", href: "/#about" },
+    // { name: "Blogs", href: "/blogs" },
+    { name: "Education", href: "/#education" },
+    { name: "Projects", href: "/#projects" },
+   
     { name: "Contact", href: "/#contact" },
   ];
 
@@ -54,9 +56,9 @@ export default function Navbar() {
             {name}
           </Link>
         ))}
-          <Button className="bg-primary cursor-pointer">
-            Hire Me
-          </Button>
+      <Link href="#contact">
+  <Button className="bg-primary cursor-pointer">Hire Me</Button>
+</Link>
           <ModeToggle />
         </div>
 
@@ -93,9 +95,9 @@ export default function Navbar() {
               {name}
             </Link>
 ))}
-              <Button className="bg-gradient-to-r from-indigo-500 to-purple-500 text-white w-[80%]">
-                Hire Me
-              </Button>
+                <Link href="#contact">
+  <Button className="bg-primary cursor-pointer">Hire Me</Button>
+</Link>
             </div>
           </motion.div>
         )}

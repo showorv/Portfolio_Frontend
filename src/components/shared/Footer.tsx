@@ -3,8 +3,21 @@
 import { motion } from "framer-motion";
 import Link from "next/link";
 import { Github, Linkedin, Mail } from "lucide-react";
+import { Button } from "../ui/button";
 
 export default function Footer() {
+
+  const handleDownloadResume = () => {
+    // const link = document.createElement("a");
+    // link.href = "/resume.pdf"; // place resume.pdf inside /public
+    // link.download = "Yousuf_Showrov_Resume.pdf";
+    // document.body.appendChild(link);
+    // link.click();
+    // document.body.removeChild(link);
+
+   window.alert("Resume not available yet. Will update soon!")
+  };
+
   return (
     <motion.footer
       initial={{ opacity: 0, y: 50 }}
@@ -32,13 +45,13 @@ export default function Footer() {
           >
             Get In Touch
           </Link>
-          <Link
-            href="/Yousuf_Showrov_CV.pdf"
-            target="_blank"
+          <Button
+            size="lg"
+            onClick={handleDownloadResume}
             className="flex min-w-[140px] cursor-pointer items-center justify-center rounded-lg h-12 px-6 bg-slate-100 dark:bg-[#232f48] text-slate-900 dark:text-white text-sm font-bold tracking-wide hover:bg-slate-200 dark:hover:bg-[#2d3b5a] transition-all"
           >
             Download CV
-          </Link>
+          </Button>
         </div>
       </div>
 
@@ -56,7 +69,7 @@ export default function Footer() {
             <Linkedin size={18} />
           </Link>
           <Link
-            href="https://github.com/YousufShowrov"
+            href="https://github.com/showorv"
             target="_blank"
             rel="noopener noreferrer"
             className="hover:text-primary transition-colors"
