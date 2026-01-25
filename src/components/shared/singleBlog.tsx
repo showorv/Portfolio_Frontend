@@ -3,6 +3,7 @@
 import { motion } from "framer-motion";
 import { IBlogs } from "@/types/blogTypes";
 import SectionTitle from "../ui/SectionTitle";
+import Image from "next/image";
 
 
 
@@ -59,7 +60,7 @@ export default function SingleBlog({blog}: {blog: IBlogs}) {
 
 
     {blog.thumbnail && (
-      <img
+      <Image
         src={blog.thumbnail}
         alt={blog.title}
         className="w-full h-64 object-cover rounded-md mb-6"

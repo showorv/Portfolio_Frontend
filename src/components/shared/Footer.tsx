@@ -30,7 +30,7 @@ export default function Footer() {
         {/* Left Section: Text */}
         <div className="flex flex-col gap-2 text-center md:text-left">
           <h4 className="text-xl font-bold text-foreground dark:text-white">
-            Let's build something amazing
+          Let&apos;s build something amazing
           </h4>
           <p className="text-slate-500 dark:text-[#92a4c9]">
             Currently open to new projects and opportunities.

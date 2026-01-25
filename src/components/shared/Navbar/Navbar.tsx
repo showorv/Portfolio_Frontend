@@ -40,9 +40,17 @@ export default function Navbar() {
     >
       <div className="max-w-7xl mx-auto flex items-center justify-between px-6 py-4">
       
-        <h1 className="text-xl font-bold text-foreground">
+        {/* <h1 className="text-xl font-bold text-foreground">
           Yousuf Showrov
-        </h1>
+        </h1> */}
+        <Link href="/" className="flex items-center gap-2">
+  <div className="w-8 h-8 bg-primary rounded-full flex items-center justify-center text-white font-bold">
+    YS
+  </div>
+  <span className="text-xl font-bold text-foreground hover:text-primary transition-colors">
+    Yousuf Showrov
+  </span>
+</Link>
 
        
         <div className="hidden md:flex items-center gap-6">

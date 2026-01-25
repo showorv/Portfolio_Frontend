@@ -56,10 +56,10 @@ export default function Contact() {
           className="flex flex-col justify-center"
         >
           <h1 className="text-4xl font-bold tracking-tight text-white lg:text-5xl">
-            Let's <span className="text-primary">Connect</span>
+          Let&apos;s <span className="text-primary">Connect</span>
           </h1>
           <p className="mt-6 max-w-md text-lg leading-relaxed text-slate-400">
-            Have a project in mind or just want to say hi? I'm always open to discussing new projects, creative ideas or opportunities to be part of your visions.
+            Have a project in mind or just want to say hi? I&apos;m always open to discussing new projects, creative ideas or opportunities to be part of your visions.
           </p>
 
           {/* Contact Cards */}
@@ -146,7 +146,7 @@ export default function Contact() {
   );
 }
 
-// ----------------- Sub Components -----------------
+
 
 function ContactCard({ icon: Icon, title, value, href }: { icon: any; title: string; value: string; href: string }) {
   return (

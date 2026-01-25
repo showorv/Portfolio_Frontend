@@ -25,7 +25,7 @@ export default function About() {
 
           <div className="relative w-full xl:w-1/2 aspect-video xl:aspect-auto min-h-[280px]">
             <Image
-              src="/logo.png"
+              src="/logo2.png"
               alt="Yousuf Showrov"
               fill
               priority

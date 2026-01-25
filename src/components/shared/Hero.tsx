@@ -34,7 +34,7 @@ export default function Hero() {
     >
       <div className="max-w-[1200px] mx-auto px-6 py-20">
         <div className="flex flex-col lg:flex-row items-center gap-12 lg:gap-20">
-          {/* ---------------- Text Content ---------------- */}
+         
           <motion.div
             initial={{ opacity: 0, y: 40 }}
             animate={{ opacity: 1, y: 0 }}
@@ -52,7 +52,7 @@ export default function Hero() {
                 <span className="text-primary">Yousuf Showrov</span>
               </h1>
 
-              {/* 🔥 Rotating Roles */}
+            
               <div className="h-[32px] lg:h-[40px] overflow-hidden">
                 <AnimatePresence mode="wait">
                   <motion.h2
@@ -153,7 +153,6 @@ export default function Hero() {
             </div>
           </motion.div>
 
-          {/* ---------------- Image ---------------- */}
           <motion.div
             initial={{ opacity: 0, scale: 0.9 }}
             animate={{ opacity: 1, scale: 1 }}
@@ -163,7 +162,7 @@ export default function Hero() {
             <div className="aspect-square rounded-full relative overflow-hidden border-8 border-muted shadow-2xl z-10">
               <div className="absolute inset-0 bg-primary/20 mix-blend-overlay" />
               <Image
-                src="/logo.png"
+                src="/logo2.png"
                 alt="Yousuf Showrov"
                 fill
                 priority

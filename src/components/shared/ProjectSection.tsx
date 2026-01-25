@@ -6,6 +6,7 @@ import { motion } from "framer-motion";
 import { fetchProjects } from "@/actions/public/getPublicProject";
 import { IProject } from "@/types/projectTypes";
 import Link from "next/link";
+import Image from "next/image";
 
 export default function Projects() {
   const [projects, setProjects] = useState<IProject[]>([]);
@@ -36,10 +37,10 @@ export default function Projects() {
             transition={{ duration: 0.5, delay: index * 0.1 }}
             className="group relative flex flex-col rounded-xl overflow-hidden border border-slate-200 dark:border-slate-800 bg-white dark:bg-[#192233] transition-all hover:-translate-y-1 hover:shadow-xl"
           >
-            {/* Project Thumbnail */}
+
             <div className="relative h-48 w-full overflow-hidden">
               {project.thumbnail && (
-                <img
+                <Image
                   src={project.thumbnail}
                   alt={project.title}
                   className="h-full w-full object-cover transition-transform duration-500 group-hover:scale-110"

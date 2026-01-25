@@ -5,6 +5,7 @@ import { Card, CardHeader, CardTitle, CardDescription, CardContent } from "@/com
 import { Button } from "@/components/ui/button";
 
 import Link from "next/link";
+import Image from "next/image";
 
 
 export default function BlogCard( {post, index}: {post: any, index?:any}) {
@@ -21,7 +22,7 @@ export default function BlogCard( {post, index}: {post: any, index?:any}) {
           >
             <Card className="hover:shadow-xl transition-shadow">
               {post.thumbnail && (
-                <img
+                <Image
                   src={post.thumbnail}
                   alt={post.title}
                   className="w-full h-48 object-cover rounded-t-md"
