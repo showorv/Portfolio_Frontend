@@ -20,10 +20,10 @@ export const login= async (data: FieldValues) => {
   if (!res.ok) {
     console.log(res?.text() || "Login failed");
   }
-  
-  if (result.accessToken) {
-    document.cookie = `accessToken=${result.accessToken}; path=/; max-age=3600; SameSite=Lax; Secure`;
-  }
+
+  // if (result.accessToken) {
+  //   document.cookie = `accessToken=${result.accessToken}; path=/; max-age=3600; SameSite=Lax; Secure`;
+  // }
   return result;
     
     
