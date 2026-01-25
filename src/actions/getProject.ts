@@ -55,7 +55,7 @@ export const updateProject = async (id: string, data: FormData)=>{
     const result = await res.json()
 
     if(result){
-      revalidateTag("projects")
+      revalidateTag("projects", {})
     }
 
 
