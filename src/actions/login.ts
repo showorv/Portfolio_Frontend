@@ -1,8 +1,9 @@
 import { FieldValues } from "react-hook-form";
+import { setCookie } from "./tokenHandle";
 
 
 export const login= async (data: FieldValues) => {
-
+  let accessTokenObject: null | any = null;
 
   const res = await fetch (`${process.env.NEXT_PUBLIC_BACKEND_URL}/auth`,{
         method: "POST",
@@ -20,6 +21,13 @@ export const login= async (data: FieldValues) => {
     console.log(res?.text() || "Login failed");
   }
 
+  await setCookie("access-token", accessTokenObject.accessToken, {
+    secure: true,
+    httpOnly: true,
+    maxAge: parseInt(accessTokenObject['Max-Age']) || 1000 * 60 * 60,
+    path: accessTokenObject.Path || "/",
+    sameSite: accessTokenObject['SameSite'] || "none",
+});
   return result;
     
     
