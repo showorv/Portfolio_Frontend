@@ -20,36 +20,10 @@ export const login= async (data: FieldValues) => {
   if (!res.ok) {
     console.log(res?.text() || "Login failed");
   }
-
-//   const setCookieHeaders = res.headers.getSetCookie();
-
-//         if (setCookieHeaders && setCookieHeaders.length > 0) {
-//             setCookieHeaders.forEach((cookie: string) => {
-//                 const parsedCookie = parse(cookie);
-
-//                 if (parsedCookie['accessToken']) {
-//                     accessTokenObject = parsedCookie;
-                   
-                    
-//                 }
-              
-//             })
-//         } else {
-//             throw new Error("No Set-Cookie header found");
-//         }
-
-//         if (!accessTokenObject) {
-//             throw new Error("Tokens not found in cookies");
-//         }
-
-      
-//   await setCookie("accessToken", accessTokenObject.accessToken, {
-//     secure: true,
-//     httpOnly: true,
-//     maxAge: parseInt(accessTokenObject['Max-Age']) || 1000 * 60 * 60,
-//     path: accessTokenObject.Path || "/",
-//     sameSite: accessTokenObject['SameSite'] || "none",
-// });
+  
+  if (result.accessToken) {
+    document.cookie = `accessToken=${result.accessToken}; path=/; max-age=3600; SameSite=Lax; Secure`;
+  }
   return result;
     
     
