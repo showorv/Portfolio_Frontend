@@ -55,9 +55,9 @@ export const updateBlog = async (id: string, data: FormData)=>{
 
       const result = await res.json()
 
-      if(result){
-        revalidateTag("blogs")
-      }
+      // if(result){
+      //   revalidateTag("blogs")
+      // }
 
 
       return result
