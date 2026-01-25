@@ -21,7 +21,7 @@ export const login= async (data: FieldValues) => {
     console.log(res?.text() || "Login failed");
   }
 
-  await setCookie("access-token", accessTokenObject.accessToken, {
+  await setCookie("accessToken", accessTokenObject.accessToken, {
     secure: true,
     httpOnly: true,
     maxAge: parseInt(accessTokenObject['Max-Age']) || 1000 * 60 * 60,
