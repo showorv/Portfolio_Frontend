@@ -16,15 +16,18 @@ export default function Hero() {
     }, 2200);
     return () => clearInterval(interval);
   }, []);
-  const handleDownloadResume = () => {
-    // const link = document.createElement("a");
-    // link.href = "/resume.pdf"; // place resume.pdf inside /public
-    // link.download = "Yousuf_Showrov_Resume.pdf";
-    // document.body.appendChild(link);
-    // link.click();
-    // document.body.removeChild(link);
 
-   window.alert("Resume not available yet. Will update soon!")
+  const handleDownloadResume = () => {
+    const link = document.createElement("a");
+    link.href = "/resume.pdf"; // place resume.pdf inside /public
+    link.download = "Yousuf_Showrov_Resume.pdf";
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
+
+    // window.open("/resume.pdf", "_self");
+
+  //  window.alert("Resume not available yet. Will update soon!")
   };
 
   return (
@@ -132,7 +135,7 @@ export default function Hero() {
             </div>
 
 
-            <div className="flex justify-center lg:justify-start items-center gap-3">
+            <div className="flex justify-center lg:justify-start items-center gap-3 mb-10 md:mb-0">
               <Link href="#projects">
                 <Button variant="outline" size="lg" className="rounded-xl">
                   View Projects

@@ -1,5 +1,6 @@
 import About from "@/components/shared/AboutMe";
 import BlogCard from "@/components/shared/BlogCard";
+import CertificationsSection from "@/components/shared/Certificate";
 
 import Contact from "@/components/shared/Contact";
 import Education from "@/components/shared/Education";
@@ -43,7 +44,7 @@ export default async function Home() {
       </div>
       </section> */}
   
-
+    <CertificationsSection />
     <Contact />
     </div>
   );

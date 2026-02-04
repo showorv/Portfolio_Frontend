@@ -8,14 +8,16 @@ import { Button } from "../ui/button";
 export default function Footer() {
 
   const handleDownloadResume = () => {
-    // const link = document.createElement("a");
-    // link.href = "/resume.pdf"; // place resume.pdf inside /public
-    // link.download = "Yousuf_Showrov_Resume.pdf";
-    // document.body.appendChild(link);
-    // link.click();
-    // document.body.removeChild(link);
+    const link = document.createElement("a");
+    link.href = "/resume.pdf"; // place resume.pdf inside /public
+    link.download = "Yousuf_Showrov_Resume.pdf";
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
 
-   window.alert("Resume not available yet. Will update soon!")
+    // window.open("/resume.pdf", "_self");
+
+  //  window.alert("Resume not available yet. Will update soon!")
   };
 
   return (
