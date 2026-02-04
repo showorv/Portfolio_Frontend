@@ -20,8 +20,8 @@ const certifications = [
 
 export default function CertificationsSection() {
   return (
-    <section className="py-10">
-      <SectionTitle title="Certifications & Achievements"/>
+    <section id="Achievements" className="mx-auto max-w-7xl px-6 py-10 lg:py-20">
+      <SectionTitle title="Achievements" subtitle="Certifications and recognitions earned through learning and competitions"/>
 
       <div className="grid gap-6 md:grid-cols-2 max-w-4xl mx-auto">
         {certifications.map((item, i) => (

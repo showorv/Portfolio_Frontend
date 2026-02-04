@@ -17,18 +17,18 @@ export default function Hero() {
     return () => clearInterval(interval);
   }, []);
 
-  const handleDownloadResume = () => {
-    const link = document.createElement("a");
-    link.href = "/resume.pdf"; // place resume.pdf inside /public
-    link.download = "Yousuf_Showrov_Resume.pdf";
-    document.body.appendChild(link);
-    link.click();
-    document.body.removeChild(link);
+  // const handleDownloadResume = () => {
+  //   const link = document.createElement("a");
+  //   link.href = "/resume.pdf"; // place resume.pdf inside /public
+  //   link.download = "Yousuf_Showrov_Resume.pdf";
+  //   document.body.appendChild(link);
+  //   link.click();
+  //   document.body.removeChild(link);
 
-    // window.open("/resume.pdf", "_self");
+  //   // window.open("/resume.pdf", "_self");
 
-  //  window.alert("Resume not available yet. Will update soon!")
-  };
+  // //  window.alert("Resume not available yet. Will update soon!")
+  // };
 
   return (
     <section
@@ -80,15 +80,17 @@ export default function Hero() {
 
      
             <div className="flex flex-wrap justify-center lg:justify-start items-center gap-4">
+              <Link href="https://drive.google.com/file/d/1dNGkSnZTMDslmlYJ6EGWqY3cijgnDL9Q/view?usp=sharing"  target="_blank"
+  rel="noopener noreferrer">
               <Button
                 size="lg"
-                onClick={handleDownloadResume}
+                // onClick={handleDownloadResume}
                 className="rounded-xl px-8 py-6 text-base font-bold shadow-xl shadow-primary/20"
                 
               >
                 Download Resume
               </Button>
-
+              </Link>
              
                <Link
                 href="https://github.com/showorv"

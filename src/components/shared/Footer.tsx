@@ -7,18 +7,18 @@ import { Button } from "../ui/button";
 
 export default function Footer() {
 
-  const handleDownloadResume = () => {
-    const link = document.createElement("a");
-    link.href = "/resume.pdf"; // place resume.pdf inside /public
-    link.download = "Yousuf_Showrov_Resume.pdf";
-    document.body.appendChild(link);
-    link.click();
-    document.body.removeChild(link);
+  // const handleDownloadResume = () => {
+  //   const link = document.createElement("a");
+  //   link.href = "/resume.pdf"; // place resume.pdf inside /public
+  //   link.download = "Yousuf_Showrov_Resume.pdf";
+  //   document.body.appendChild(link);
+  //   link.click();
+  //   document.body.removeChild(link);
 
-    // window.open("/resume.pdf", "_self");
+  //   // window.open("/resume.pdf", "_self");
 
-  //  window.alert("Resume not available yet. Will update soon!")
-  };
+  // //  window.alert("Resume not available yet. Will update soon!")
+  // };
 
   return (
     <motion.footer
@@ -47,13 +47,16 @@ export default function Footer() {
           >
             Get In Touch
           </Link>
+          <Link href="https://drive.google.com/file/d/1dNGkSnZTMDslmlYJ6EGWqY3cijgnDL9Q/view?usp=sharing"  target="_blank"
+  rel="noopener noreferrer">
           <Button
             size="lg"
-            onClick={handleDownloadResume}
+            // onClick={handleDownloadResume}
             className="flex min-w-[140px] cursor-pointer items-center justify-center rounded-lg h-12 px-6 bg-slate-100 dark:bg-[#232f48] text-slate-900 dark:text-white text-sm font-bold tracking-wide hover:bg-slate-200 dark:hover:bg-[#2d3b5a] transition-all"
           >
             Download CV
           </Button>
+          </Link>
         </div>
       </div>
 
