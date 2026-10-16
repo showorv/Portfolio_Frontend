@@ -37,6 +37,12 @@ export default function About() {
           <div className="flex w-full min-w-72 grow flex-col justify-center gap-6 p-8 md:p-10">
             <div className="space-y-4">
               <h3 className="text-2xl font-bold">My Story</h3>
+              <p className="text-muted-foreground text-base leading-relaxed">
+              Impact-driven Full-stack developer specializing in the MERN stack with a strong foundation in building scalable, secure, and
+user-centric web applications. Skilled in developing end-to-end solutions with clean, responsive user interfaces and robust
+backend systems. Passionate about AWS and cloud technologies and continuous learning. Seeking a remote opportunity to
+contribute to high-impact products.
+              </p>
 
               <p className="text-muted-foreground text-base leading-relaxed">
                 I started my programming journey with curiosity about how the
@@ -46,24 +52,25 @@ export default function About() {
                 and user-focused digital products.
               </p>
 
-              <p className="text-muted-foreground text-base leading-relaxed">
-                Outside of coding, you’ll find me in the gym pushing my limits
-                or exploring new technologies. I believe consistency,
-                discipline, and continuous learning are the foundations of both
-                great fitness and great engineering.
-              </p>
+  
             </div>
 
         
             <div className="flex flex-wrap gap-3 pt-4">
-              <div className="flex items-center gap-2 px-3 py-1.5 rounded-full bg-primary/10 text-primary text-xs font-bold uppercase tracking-wider">
+              {/* <div className="flex items-center gap-2 px-3 py-1.5 rounded-full bg-primary/10 text-primary text-xs font-bold uppercase tracking-wider">
                 💪 Fitness Enthusiast
-              </div>
+              </div> */}
               {/* <div className="flex items-center gap-2 px-3 py-1.5 rounded-full bg-primary/10 text-primary text-xs font-bold uppercase tracking-wider">
                 ☕ Coffee Powered
               </div> */}
               <div className="flex items-center gap-2 px-3 py-1.5 rounded-full bg-primary/10 text-primary text-xs font-bold uppercase tracking-wider">
-                🚀 Growth Mindset
+               Growth Mindset
+              </div>
+              <div className="flex items-center gap-2 px-3 py-1.5 rounded-full bg-primary/10 text-primary text-xs font-bold uppercase tracking-wider">
+              Adaptability
+              </div>
+              <div className="flex items-center gap-2 px-3 py-1.5 rounded-full bg-primary/10 text-primary text-xs font-bold uppercase tracking-wider">
+              Learning Agility
               </div>
             </div>
           </div>

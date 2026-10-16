@@ -80,7 +80,7 @@ export default function Hero() {
 
      
             <div className="flex flex-wrap justify-center lg:justify-start items-center gap-4">
-              <Link href="https://drive.google.com/file/d/1dNGkSnZTMDslmlYJ6EGWqY3cijgnDL9Q/view?usp=sharing"  target="_blank"
+              <Link href="https://drive.google.com/file/d/1wA_Y1EQ65I9SkJ_bxGtyjO5hlD6z2fmz/view?usp=sharing"  target="_blank"
   rel="noopener noreferrer">
               <Button
                 size="lg"
@@ -114,7 +114,7 @@ export default function Hero() {
               </Link>
 
               <Link
-                href="https://linkedin.com/in/yourusername"
+                href="https://www.linkedin.com/in/yousuf-showrov-3b2836414"
                 target="_blank"
                 className="w-12 h-12 flex items-center justify-center rounded-xl bg-muted hover:bg-primary/10 hover:text-primary border border-transparent hover:border-primary/30 transition-all"
               >

@@ -66,7 +66,7 @@ export default function Footer() {
 
         <div className="flex gap-4">
           <Link
-            href="https://linkedin.com/in/YousufShowrov"
+            href="https://www.linkedin.com/in/yousuf-showrov-3b2836414"
             target="_blank"
             rel="noopener noreferrer"
             className="hover:text-primary transition-colors"
