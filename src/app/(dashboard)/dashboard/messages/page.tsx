@@ -1,10 +1,7 @@
-import MessageTable from '@/components/modules/message/Messageable'
-import React from 'react'
+import { getMessages } from "@/actions/admin";
+import MessageList from "@/components/admin/MessageList";
 
-export default function MessageInfo() {
-  return (
-    <div>
-      <MessageTable />
-    </div>
-  )
+export default async function MessagesPage() {
+  const res = await getMessages();
+  return <MessageList messages={res.data ?? []} />;
 }

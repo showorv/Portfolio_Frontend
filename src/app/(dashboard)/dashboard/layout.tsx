@@ -1,19 +1,14 @@
-import Sidebar from "@/components/shared/Sidebar";
+import type { Metadata } from "next";
+import { getStats } from "@/actions/admin";
+import AdminShell from "@/components/admin/AdminShell";
 
+export const metadata: Metadata = {
+  title: "Admin · Showrov's portfolio",
+  robots: { index: false, follow: false },
+};
 
-export default function DashboardLayout({
-  children,
-}: Readonly<{
-  children: React.ReactNode;
-}>) {
-  return (
-    <main className="min-h-dvh flex gap-4">
-      <Sidebar />
+export default async function DashboardLayout({ children }: Readonly<{ children: React.ReactNode }>) {
+  const stats = await getStats();
 
-      <div className="flex-1 p-6 bg-white dark:bg-black min-h-screen">
-
-      {children}
-      </div>
-    </main>
-  );
+  return <AdminShell unreadMessages={stats.success ? stats.data.unreadMessages : 0}>{children}</AdminShell>;
 }

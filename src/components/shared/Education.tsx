@@ -34,17 +34,17 @@ const educationData = [
 
 export default function Education() {
   return (
-    <section id="education" className="max-w-7xl mx-auto px-6 scroll-mt-32 py-10 bg-background">
+    <section id="education" className="max-w-7xl mx-auto px-6 scroll-mt-32 py-10 bg-background overflow-hidden">
       <SectionTitle title="Education" subtitle="My learning journey and milestones" />
 
       <div className="relative flex flex-col gap-12 before:absolute before:left-5 before:top-2 before:h-[calc(100%-16px)] before:w-[2px] before:bg-slate-200 dark:before:bg-[#232f48]">
         {educationData.map((edu) => (
           <motion.div
             key={edu.id}
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.5 }}
+            initial={{ opacity: 0, x: -40 }}
+            whileInView={{ opacity: 1, x: 0 }}
+            viewport={{ once: true, margin: "-60px" }}
+            transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
             className="relative pl-10 group"
           >
             {/* Timeline Circle */}

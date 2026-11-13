@@ -270,3 +270,18 @@
     @apply bg-background text-foreground;
   }
 }
+
+/* anchor jumps stop below the fixed navbar when the smooth scroller is off */
+html {
+  scroll-padding-top: 72px;
+}
+
+::selection {
+  background: color-mix(in oklch, var(--primary) 35%, transparent);
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  html:not(.lenis) {
+    scroll-behavior: smooth;
+  }
+}

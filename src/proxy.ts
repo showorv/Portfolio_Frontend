@@ -1,19 +1,33 @@
 import { NextResponse } from "next/server";
 import type { NextRequest } from "next/server";
-import { getCookie } from "./actions/tokenHandle";
+
+// Only decides where to send the browser. The backend verifies the token's
+// signature on every admin request, so reading the expiry here is enough.
+function isTokenLive(token: string | undefined) {
+  if (!token) return false;
+  try {
+    const payload = JSON.parse(atob(token.split(".")[1].replace(/-/g, "+").replace(/_/g, "/")));
+    return typeof payload.exp !== "number" || payload.exp * 1000 > Date.now();
+  } catch {
+    return false;
+  }
+}
 
 export async function proxy(req: NextRequest) {
-  const token = await getCookie("accessToken") ||  null;
-  if (!token && req.nextUrl.pathname.startsWith("/dashboard")) {
+  const loggedIn = isTokenLive(req.cookies.get("accessToken")?.value);
+  const { pathname } = req.nextUrl;
+
+  if (!loggedIn && pathname.startsWith("/dashboard")) {
     return NextResponse.redirect(new URL("/login", req.url));
   }
 
-  if (token && req.nextUrl.pathname === "/login") {
+  if (loggedIn && pathname === "/login") {
     return NextResponse.redirect(new URL("/dashboard", req.url));
   }
+
   return NextResponse.next();
 }
 
 export const config = {
-  matcher: ["/dashboard/:path*","/login"],
+  matcher: ["/dashboard/:path*", "/login"],
 };

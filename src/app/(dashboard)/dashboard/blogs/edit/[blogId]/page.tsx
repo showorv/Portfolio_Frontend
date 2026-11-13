@@ -1,7 +1,12 @@
-import React from 'react'
+import { notFound } from "next/navigation";
+import { getBlogById } from "@/actions/admin";
+import BlogForm from "@/components/admin/BlogForm";
 
-export default function EditBlog() {
-  return (
-    <div>EditBlog id: 1</div>
-  )
+export default async function EditBlogPage({ params }: { params: Promise<{ blogId: string }> }) {
+  const { blogId } = await params;
+  const res = await getBlogById(blogId);
+
+  if (!res.success || !res.data) notFound();
+
+  return <BlogForm blog={res.data} />;
 }

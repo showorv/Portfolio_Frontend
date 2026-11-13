@@ -51,13 +51,13 @@ export default function Skills() {
       />
 
       <div className="max-w-7xl mx-auto px-6 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-10">
-        {categories.map(({ key, icon: Icon }) => (
+        {categories.map(({ key, icon: Icon }, index) => (
           <motion.div
             key={key}
             initial={{ opacity: 0, y: 30 }}
             whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.5 }}
+            viewport={{ once: true, margin: "-60px" }}
+            transition={{ duration: 0.6, delay: index * 0.1, ease: [0.22, 1, 0.36, 1] }}
             className="flex flex-col gap-5"
           >
             {/* Category Header */}
@@ -73,9 +73,11 @@ export default function Skills() {
               {groupedSkills[key].map((skill) => (
                 <motion.div
                   key={skill._id}
-                  whileHover={{ y: -2 }}
-                  transition={{ type: "spring", stiffness: 300 }}
-                  className="flex flex-col items-center gap-2 px-2 py-2 bg-card rounded-lg border border-border hover:shadow-md transition-all"
+                  initial={{ opacity: 0, scale: 0.8 }}
+                  animate={{ opacity: 1, scale: 1 }}
+                  whileHover={{ y: -4, scale: 1.05 }}
+                  transition={{ type: "spring", stiffness: 300, damping: 20 }}
+                  className="flex flex-col items-center gap-2 px-2 py-2 bg-card rounded-lg border border-border hover:shadow-md hover:border-primary/40 transition-[box-shadow,border-color]"
                 >
                   {/* Logo */}
                   <div className="w-8 h-8 rounded-md bg-muted/40 flex items-center justify-center">

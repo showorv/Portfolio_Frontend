@@ -44,7 +44,7 @@ export default function Contact() {
   };
 
   return (
-    <section id="contact" className="mx-auto max-w-7xl px-6 py-10 lg:py-20">
+    <section id="contact" className="mx-auto max-w-7xl px-6 py-10 lg:py-20 overflow-hidden">
        <SectionTitle title="Contact Me" subtitle="Get in touch with me" />
       <div className="grid grid-cols-1 gap-16 lg:grid-cols-2">
         {/* Left Column: Contact Info */}
@@ -55,10 +55,10 @@ export default function Contact() {
           transition={{ duration: 0.5 }}
           className="flex flex-col justify-center"
         >
-          <h1 className="text-4xl font-bold tracking-tight text-white lg:text-5xl">
+          <h1 className="text-4xl font-bold tracking-tight text-foreground lg:text-5xl">
           Let&apos;s <span className="text-primary">Connect</span>
           </h1>
-          <p className="mt-6 max-w-md text-lg leading-relaxed text-slate-400">
+          <p className="mt-6 max-w-md text-lg leading-relaxed text-muted-foreground">
             Have a project in mind or just want to say hi? I&apos;m always open to discussing new projects, creative ideas or opportunities to be part of your visions.
           </p>
 
@@ -93,7 +93,7 @@ export default function Contact() {
           whileInView={{ opacity: 1, x: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.5 }}
-          className="rounded-xl border border-white/5 bg-white/5 p-8 lg:p-10 backdrop-blur-sm"
+          className="rounded-xl border border-border bg-card/60 p-6 sm:p-8 lg:p-10 backdrop-blur-sm shadow-sm"
         >
           <form onSubmit={handleSubmit} className="space-y-6">
             <div className="grid grid-cols-1 gap-6 sm:grid-cols-2">
@@ -160,8 +160,8 @@ function ContactCard({ icon: Icon, title, value, href }: { icon: any; title: str
         <Icon className="w-6 h-6" />
       </div>
       <div>
-        <p className="text-sm font-bold uppercase tracking-wider text-slate-500">{title}</p>
-        <span className="text-lg font-medium text-white group-hover:text-primary transition-colors">{value}</span>
+        <p className="text-sm font-bold uppercase tracking-wider text-muted-foreground">{title}</p>
+        <span className="text-lg font-medium text-foreground break-all group-hover:text-primary transition-colors">{value}</span>
       </div>
     </a>
   );
@@ -171,14 +171,14 @@ function ContactCard({ icon: Icon, title, value, href }: { icon: any; title: str
 function FormInput({ label, name, type, value, onChange, placeholder }: any) {
   return (
     <div className="flex flex-col gap-2">
-      <label className="text-sm font-medium text-slate-300">{label}</label>
+      <label className="text-sm font-medium text-foreground/80">{label}</label>
       <input
         type={type}
         name={name}
         value={value}
         onChange={onChange}
         placeholder={placeholder}
-        className="w-full rounded-lg border border-white/10 bg-background-dark/50 px-4 py-3 text-white placeholder:text-slate-600 focus:border-primary focus:ring-1 focus:ring-primary transition-all outline-none"
+        className="w-full rounded-lg border border-input bg-background/60 px-4 py-3 text-foreground placeholder:text-muted-foreground/70 focus:border-primary focus:ring-1 focus:ring-primary transition-all outline-none"
       />
     </div>
   );
@@ -187,14 +187,14 @@ function FormInput({ label, name, type, value, onChange, placeholder }: any) {
 function FormTextarea({ label, name, value, onChange, placeholder, rows }: any) {
   return (
     <div className="flex flex-col gap-2">
-      <label className="text-sm font-medium text-slate-300">{label}</label>
+      <label className="text-sm font-medium text-foreground/80">{label}</label>
       <textarea
         name={name}
         value={value}
         onChange={onChange}
         placeholder={placeholder}
         rows={rows}
-        className="w-full rounded-lg border border-white/10 bg-background-dark/50 px-4 py-3 text-white placeholder:text-slate-600 focus:border-primary focus:ring-1 focus:ring-primary transition-all outline-none resize-none"
+        className="w-full rounded-lg border border-input bg-background/60 px-4 py-3 text-foreground placeholder:text-muted-foreground/70 focus:border-primary focus:ring-1 focus:ring-primary transition-all outline-none resize-none"
       />
     </div>
   );

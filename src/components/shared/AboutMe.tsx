@@ -15,10 +15,10 @@ export default function About() {
             scalable web solutions." />
 
       <motion.div
-        initial={{ opacity: 0, y: 30 }}
-        whileInView={{ opacity: 1, y: 0 }}
-        viewport={{ once: true }}
-        transition={{ duration: 0.6 }}
+        initial={{ opacity: 0, y: 50, scale: 0.97 }}
+        whileInView={{ opacity: 1, y: 0, scale: 1 }}
+        viewport={{ once: true, margin: "-80px" }}
+        transition={{ duration: 0.7, ease: [0.22, 1, 0.36, 1] }}
         className="max-w-7xl mx-auto px-6"
       >
         <div className="flex flex-col xl:flex-row rounded-2xl shadow-xl bg-card border border-border overflow-hidden">
@@ -28,7 +28,7 @@ export default function About() {
               src="/logo2.png"
               alt="Yousuf Showrov"
               fill
-              priority
+              sizes="(min-width: 1280px) 50vw, 100vw"
               className="object-cover"
             />
           </div>

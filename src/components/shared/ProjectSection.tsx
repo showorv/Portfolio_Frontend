@@ -10,6 +10,7 @@ import Image from "next/image";
 
 export default function Projects() {
   const [projects, setProjects] = useState<IProject[]>([]);
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     const getProjects = async () => {
@@ -18,6 +19,8 @@ export default function Projects() {
         setProjects(response.data);
       } catch (error) {
         console.error("Failed to fetch projects:", error);
+      } finally {
+        setLoading(false);
       }
     };
     getProjects();
@@ -28,14 +31,19 @@ export default function Projects() {
       <SectionTitle title="My Projects" subtitle="Some of my recent works" />
 
       <div className="max-w-7xl mx-auto px-6 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+        {loading &&
+          Array.from({ length: 3 }).map((_, i) => (
+            <div key={i} className="h-[380px] rounded-xl border border-border bg-card animate-pulse" />
+          ))}
         {projects.map((project, index) => (
           <motion.div
             key={project._id}
-            initial={{ opacity: 0, y: 20 }}
+            initial={{ opacity: 0, y: 40 }}
             whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.5, delay: index * 0.1 }}
-            className="group relative flex flex-col rounded-xl overflow-hidden border border-slate-200 dark:border-slate-800 bg-white dark:bg-[#192233] transition-all hover:-translate-y-1 hover:shadow-xl"
+            viewport={{ once: true, margin: "-60px" }}
+            transition={{ duration: 0.6, delay: (index % 3) * 0.1, ease: [0.22, 1, 0.36, 1] }}
+            whileHover={{ y: -8 }}
+            className="group relative flex flex-col rounded-xl overflow-hidden border border-slate-200 dark:border-slate-800 bg-white dark:bg-[#192233] transition-shadow hover:shadow-xl hover:shadow-primary/10"
           >
 
             <div className="relative h-48 w-full overflow-hidden">
@@ -44,6 +52,7 @@ export default function Projects() {
                   src={project.thumbnail}
                   alt={project.title}
                   fill
+                  sizes="(min-width: 1024px) 33vw, (min-width: 768px) 50vw, 100vw"
                   className="h-full w-full object-cover transition-transform duration-500 group-hover:scale-110"
                 />
               )}

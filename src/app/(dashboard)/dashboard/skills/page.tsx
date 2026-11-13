@@ -1,8 +1,7 @@
-import SkillTable from '@/components/modules/skills/SkillTable'
-import React from 'react'
+import { getSkills } from "@/actions/admin";
+import SkillManager from "@/components/admin/SkillManager";
 
-export default function SkillPage() {
-  return (
-    <div><SkillTable /></div>
-  )
+export default async function SkillsPage() {
+  const res = await getSkills();
+  return <SkillManager skills={res.data ?? []} />;
 }

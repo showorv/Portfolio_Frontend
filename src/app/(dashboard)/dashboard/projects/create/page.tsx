@@ -1,10 +1,5 @@
-import { ProjectForm } from '@/components/modules/projects/ProjectForm'
-import React from 'react'
+import ProjectForm from "@/components/admin/ProjectForm";
 
-export default function CreateProject() {
-  return (
-    <div>
-      <ProjectForm />
-    </div>
-  )
+export default function CreateProjectPage() {
+  return <ProjectForm />;
 }

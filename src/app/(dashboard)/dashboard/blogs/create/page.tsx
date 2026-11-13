@@ -1,10 +1,5 @@
-import { BlogForm } from '@/components/modules/blogs/BlogForm'
-import React from 'react'
+import BlogForm from "@/components/admin/BlogForm";
 
-export default function CreateBlog() {
-  return (
-    <div>
-      <BlogForm />
-    </div>
-  )
+export default function CreateBlogPage() {
+  return <BlogForm />;
 }
