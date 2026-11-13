@@ -89,7 +89,7 @@ export default function MediaBrowser({ onSelect }: { onSelect?: (media: IMedia) 
     const res = await deleteMedia(toDelete.media._id, Boolean(toDelete.inUse));
 
     if (!res.success && !toDelete.inUse && /used by/i.test(res.message)) {
-      // still referenced by a project, blog or skill: ask again before forcing
+      // still referenced by a project, skill or the site content: ask again before forcing
       setToDelete({ media: toDelete.media, inUse: res.message });
       return;
     }

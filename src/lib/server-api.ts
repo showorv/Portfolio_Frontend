@@ -11,7 +11,7 @@ export interface ApiResult<T> {
 }
 
 interface ApiOptions {
-  method?: "GET" | "POST" | "PATCH" | "DELETE";
+  method?: "GET" | "POST" | "PUT" | "PATCH" | "DELETE";
   body?: unknown;
   /** Send the admin token. A rejected token ends the session. */
   auth?: boolean;

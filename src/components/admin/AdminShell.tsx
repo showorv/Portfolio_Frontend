@@ -6,13 +6,14 @@ import { usePathname, useRouter } from "next/navigation";
 import { AnimatePresence, motion } from "framer-motion";
 import {
   ExternalLink,
-  FileText,
   FolderKanban,
   Images,
   LayoutDashboard,
   LogOut,
   Mail,
   Menu,
+  PanelsTopLeft,
+  Settings,
   Sparkles,
   X,
 } from "lucide-react";
@@ -24,10 +25,11 @@ import { cn } from "@/lib/utils";
 const navigation = [
   { name: "Overview", href: "/dashboard", icon: LayoutDashboard },
   { name: "Projects", href: "/dashboard/projects", icon: FolderKanban },
-  { name: "Blogs", href: "/dashboard/blogs", icon: FileText },
   { name: "Skills", href: "/dashboard/skills", icon: Sparkles },
   { name: "Media", href: "/dashboard/media", icon: Images },
   { name: "Messages", href: "/dashboard/messages", icon: Mail },
+  { name: "Site content", href: "/dashboard/site", icon: PanelsTopLeft },
+  { name: "Settings", href: "/dashboard/settings", icon: Settings },
 ];
 
 const isActive = (pathname: string, href: string) =>

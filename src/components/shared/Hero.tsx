@@ -6,8 +6,7 @@ import Link from "next/link";
 import { AnimatePresence, motion, useScroll, useTransform, type Variants } from "framer-motion";
 import { ArrowDown, BadgeCheck, Download, Github, Linkedin } from "lucide-react";
 import { Button } from "@/components/ui/button";
-
-const roles = ["Full Stack Web Developer", "Web Designer", "Cloud Enthusiast"];
+import type { ISite } from "@/types/siteTypes";
 
 const EASE = [0.22, 1, 0.36, 1] as const;
 
@@ -21,12 +20,12 @@ const rise: Variants = {
   show: { opacity: 1, y: 0, transition: { duration: 0.7, ease: EASE } },
 };
 
-const socials = [
-  { label: "GitHub", href: "https://github.com/showorv", icon: Github },
-  { label: "LinkedIn", href: "https://www.linkedin.com/in/yousuf-showrov-3b2836414", icon: Linkedin },
-];
-
-export default function Hero() {
+export default function Hero({ hero, contact }: { hero: ISite["hero"]; contact: ISite["contact"] }) {
+  const roles = hero.roles;
+  const socials = [
+    { label: "GitHub", href: contact.github, icon: Github },
+    { label: "LinkedIn", href: contact.linkedin, icon: Linkedin },
+  ].filter((social) => social.href);
   const [index, setIndex] = useState(0);
   const sectionRef = useRef<HTMLElement>(null);
 
@@ -37,9 +36,10 @@ export default function Hero() {
   const fade = useTransform(scrollYProgress, [0, 0.7], [1, 0]);
 
   useEffect(() => {
+    if (roles.length < 2) return;
     const interval = setInterval(() => setIndex((prev) => (prev + 1) % roles.length), 2200);
     return () => clearInterval(interval);
-  }, []);
+  }, [roles.length]);
 
   return (
     <section
@@ -76,33 +76,33 @@ export default function Hero() {
           >
             <motion.div
               variants={rise}
-              className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-primary/10 border border-primary/20 text-primary text-xs font-bold uppercase tracking-widest"
+              className={hero.badge ? "inline-flex items-center gap-2 px-3 py-1 rounded-full bg-primary/10 border border-primary/20 text-primary text-xs font-bold uppercase tracking-widest" : "hidden"}
             >
               <span className="relative flex size-2">
                 <span className="absolute inline-flex size-full animate-ping rounded-full bg-primary opacity-75" />
                 <span className="relative inline-flex size-2 rounded-full bg-primary" />
               </span>
-              Available for projects
+              {hero.badge}
             </motion.div>
 
             <motion.h1 variants={rise} className="text-4xl sm:text-5xl lg:text-6xl font-bold tracking-tight leading-[1.1]">
               Hi, I&apos;m{" "}
               <span className="bg-primary bg-clip-text text-transparent">
-                Yousuf Showrov
+                {hero.name}
               </span>
             </motion.h1>
 
             <motion.div variants={rise} className="h-8 lg:h-10 overflow-hidden">
               <AnimatePresence mode="wait">
                 <motion.h2
-                  key={roles[index]}
+                  key={roles[index % roles.length]}
                   initial={{ opacity: 0, y: 24 }}
                   animate={{ opacity: 1, y: 0 }}
                   exit={{ opacity: 0, y: -24 }}
                   transition={{ duration: 0.4, ease: EASE }}
                   className="text-xl lg:text-2xl font-bold text-primary"
                 >
-                  {roles[index]}
+                  {roles[index % roles.length]}
                 </motion.h2>
               </AnimatePresence>
             </motion.div>
@@ -111,15 +111,15 @@ export default function Hero() {
               variants={rise}
               className="text-lg lg:text-xl text-muted-foreground max-w-xl leading-relaxed mx-auto lg:mx-0"
             >
-              Building scalable, user-centric web applications with modern technologies. Crafting seamless digital
-              experiences from front-end to back-end architecture.
+              {hero.intro}
             </motion.p>
 
             <motion.div variants={rise} className="flex flex-wrap justify-center lg:justify-start items-center gap-4">
+              {hero.resumeUrl && (
               <motion.div whileHover={{ y: -3 }} whileTap={{ scale: 0.97 }}>
                 <Button asChild size="lg" className="rounded-xl px-8 py-6 text-base font-bold shadow-xl shadow-primary/25">
                   <Link
-                    href="https://drive.google.com/file/d/1wA_Y1EQ65I9SkJ_bxGtyjO5hlD6z2fmz/view?usp=sharing"
+                    href={hero.resumeUrl}
                     target="_blank"
                     rel="noopener noreferrer"
                   >
@@ -127,6 +127,7 @@ export default function Hero() {
                   </Link>
                 </Button>
               </motion.div>
+              )}
 
               {socials.map(({ label, href, icon: Icon }) => (
                 <motion.div key={label} whileHover={{ y: -3, rotate: -4 }} whileTap={{ scale: 0.92 }}>
@@ -177,14 +178,14 @@ export default function Hero() {
               className="aspect-square rounded-full relative overflow-hidden border-8 border-muted shadow-2xl shadow-primary/20 z-10"
             >
               <div className="absolute inset-0 z-10 bg-primary/20 mix-blend-overlay" />
-              <Image src="/logo2.png" alt="Yousuf Showrov" fill priority sizes="(min-width: 1024px) 440px, 380px" className="object-cover" />
+              <Image src={hero.image || "/logo2.png"} alt={hero.name} fill priority sizes="(min-width: 1024px) 440px, 380px" className="object-cover" />
             </motion.div>
 
             <motion.div
               initial={{ opacity: 0, y: 20, scale: 0.9 }}
               animate={{ opacity: 1, y: 0, scale: 1 }}
               transition={{ delay: 0.9, duration: 0.5, ease: EASE }}
-              className="absolute -bottom-2 right-4 sm:right-10 z-20"
+              className={hero.experience ? "absolute -bottom-2 right-4 sm:right-10 z-20" : "hidden"}
             >
               <motion.div
                 animate={{ y: [0, 8, 0] }}
@@ -194,7 +195,7 @@ export default function Hero() {
                 <BadgeCheck className="size-5 text-primary" />
                 <div className="flex flex-col text-left">
                   <span className="text-[10px] uppercase font-bold text-muted-foreground">Experience</span>
-                  <span className="text-sm font-bold">1+ Years Exp.</span>
+                  <span className="text-sm font-bold">{hero.experience}</span>
                 </div>
               </motion.div>
             </motion.div>

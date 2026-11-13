@@ -1,10 +1,9 @@
-import Projects from '@/components/shared/ProjectSection'
-import React from 'react'
+import Projects from "@/components/shared/ProjectSection";
 
 export default function ProjectPage() {
   return (
-    <div>
+    <div className="pt-20">
       <Projects />
     </div>
-  )
+  );
 }

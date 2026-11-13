@@ -11,7 +11,7 @@ import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import type { IProject } from "@/types/projectTypes";
 import ImagePicker from "./ImagePicker";
-import { Field, PageHeader, Panel, TagInput } from "./ui";
+import { Field, PageHeader, Panel, TagInput, Toggle } from "./ui";
 
 export default function ProjectForm({ project }: { project?: IProject }) {
   const router = useRouter();
@@ -24,6 +24,7 @@ export default function ProjectForm({ project }: { project?: IProject }) {
     liveSite: project?.liveSite ?? "",
     features: project?.features ?? [],
     techStacks: project?.techStacks ?? [],
+    featured: project?.featured ?? false,
   });
 
   const set = <K extends keyof typeof form>(key: K, value: (typeof form)[K]) =>
@@ -87,6 +88,12 @@ export default function ProjectForm({ project }: { project?: IProject }) {
         </Panel>
 
         <div className="space-y-6">
+          <Panel className="p-5">
+            <Toggle checked={form.featured} onChange={(v) => set("featured", v)} label="Featured" />
+            <p className="mt-2 text-xs text-muted-foreground">
+              When any project is featured, the home page shows only the featured ones and links to the full list.
+            </p>
+          </Panel>
           <Panel className="space-y-3 p-5">
             <p className="text-sm font-medium">Thumbnail</p>
             <ImagePicker value={form.thumbnail} onChange={(url) => set("thumbnail", url)} />

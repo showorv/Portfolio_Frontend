@@ -2,7 +2,7 @@
 import SingleProject from '@/components/shared/singleProject';
 import React from 'react'
 
-export default async function SingleBlogPage({params}: {params: Promise<{id: string}>}) {
+export default async function SingleProjectPage({params}: {params: Promise<{id: string}>}) {
   const {id} = await params
   console.log(id);
   

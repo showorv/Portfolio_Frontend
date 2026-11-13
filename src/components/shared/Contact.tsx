@@ -7,8 +7,9 @@ import { toast } from "sonner";
 import { createMessage } from "@/actions/message";
 import { Mail, PhoneCall } from "lucide-react";
 import { Button } from "../ui/button";
+import type { ISite } from "@/types/siteTypes";
 
-export default function Contact() {
+export default function Contact({ contact }: { contact: ISite["contact"] }) {
   const [formData, setFormData] = useState({
     name: "",
     email: "",
@@ -64,18 +65,17 @@ export default function Contact() {
 
           {/* Contact Cards */}
           <div className="mt-12 space-y-6">
-            <ContactCard
-              icon={Mail}
-              title="Email Me"
-              value="yousufshowrov994@gmail.com"
-              href="mailto:yousufshowrov994@gmail.com"
-            />
-            <ContactCard
-              icon={PhoneCall}
-              title="Call Me"
-              value="01321066589"
-              href="tel:+8801321066589"
-            />
+            {contact.email && (
+              <ContactCard icon={Mail} title="Email Me" value={contact.email} href={`mailto:${contact.email}`} />
+            )}
+            {contact.phone && (
+              <ContactCard
+                icon={PhoneCall}
+                title="Call Me"
+                value={contact.phone}
+                href={`tel:${contact.phone.replace(/[^+\d]/g, "")}`}
+              />
+            )}
             {/* <ContactCard
               icon="chat"
               title="WhatsApp"

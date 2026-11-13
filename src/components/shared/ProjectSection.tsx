@@ -8,7 +8,8 @@ import { IProject } from "@/types/projectTypes";
 import Link from "next/link";
 import Image from "next/image";
 
-export default function Projects() {
+/** `home`: show only featured projects when any are marked, with a link to the full list. */
+export default function Projects({ home = false }: { home?: boolean }) {
   const [projects, setProjects] = useState<IProject[]>([]);
   const [loading, setLoading] = useState(true);
 
@@ -26,6 +27,9 @@ export default function Projects() {
     getProjects();
   }, []);
 
+  const featured = projects.filter((project) => project.featured);
+  const visible = home && featured.length ? featured : projects;
+
   return (
     <section id="projects" className="py-10 bg-background transition-colors duration-300 overflow-hidden ">
       <SectionTitle title="My Projects" subtitle="Some of my recent works" />
@@ -35,7 +39,7 @@ export default function Projects() {
           Array.from({ length: 3 }).map((_, i) => (
             <div key={i} className="h-[380px] rounded-xl border border-border bg-card animate-pulse" />
           ))}
-        {projects.map((project, index) => (
+        {visible.map((project, index) => (
           <motion.div
             key={project._id}
             initial={{ opacity: 0, y: 40 }}
@@ -47,6 +51,11 @@ export default function Projects() {
           >
 
             <div className="relative h-48 w-full overflow-hidden">
+              {project.featured && (
+                <span className="absolute left-3 top-3 z-10 rounded-full bg-primary px-2.5 py-1 text-[10px] font-bold uppercase tracking-wider text-primary-foreground shadow">
+                  Featured
+                </span>
+              )}
               {project.thumbnail && (
                 <Image
                   src={project.thumbnail}
@@ -105,6 +114,17 @@ export default function Projects() {
           </motion.div>
         ))}
       </div>
+
+      {home && visible.length < projects.length && (
+        <div className="mt-10 flex justify-center">
+          <Link
+            href="/projects"
+            className="rounded-lg border border-primary px-6 py-2.5 text-sm font-bold text-primary transition-colors hover:bg-primary hover:text-white"
+          >
+            View all {projects.length} projects
+          </Link>
+        </div>
+      )}
     </section>
   );
 }

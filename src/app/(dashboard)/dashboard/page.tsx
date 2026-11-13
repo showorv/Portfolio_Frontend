@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { ArrowRight, Eye, FileText, FolderKanban, Images, Mail, Plus, Sparkles, Upload } from "lucide-react";
+import { ArrowRight, FolderKanban, Images, Inbox, Mail, Plus, Sparkles, Star, Upload } from "lucide-react";
 import { getStats } from "@/actions/admin";
 import { PageHeader, Panel } from "@/components/admin/ui";
 import { formatDate } from "@/lib/format";
@@ -24,11 +24,11 @@ export default async function Dashboard() {
 
   const cards = [
     { label: "Projects", value: stats.projects, icon: FolderKanban, href: "/dashboard/projects" },
-    { label: "Blog posts", value: stats.blogs, icon: FileText, href: "/dashboard/blogs" },
+    { label: "Featured projects", value: stats.featuredProjects, icon: Star, href: "/dashboard/projects" },
     { label: "Skills", value: stats.skills, icon: Sparkles, href: "/dashboard/skills" },
     { label: "Images", value: stats.media, icon: Images, href: "/dashboard/media" },
     { label: "Unread messages", value: stats.unreadMessages, icon: Mail, href: "/dashboard/messages" },
-    { label: "Blog views", value: stats.blogViews, icon: Eye, href: "/dashboard/blogs" },
+    { label: "Messages", value: stats.messages, icon: Inbox, href: "/dashboard/messages" },
   ];
 
   return (

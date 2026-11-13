@@ -2,10 +2,10 @@
 
 import { revalidatePath } from "next/cache";
 import { api } from "@/lib/server-api";
-import type { IBlogs } from "@/types/blogTypes";
 import type { IMedia, IUploadSignature } from "@/types/mediaTypes";
 import type { IMessage } from "@/types/messageTypes";
 import type { IProject } from "@/types/projectTypes";
+import type { ISite } from "@/types/siteTypes";
 import type { ISkill } from "@/types/skillTypes";
 import type { IStats } from "@/types/statsTypes";
 
@@ -34,30 +34,21 @@ export const saveProject = async (id: string | null, data: ProjectInput) => {
   return result;
 };
 
+/** Saves the list order; ids are in the order they should appear on the site. */
+export const reorderProjects = async (ids: string[]) => {
+  const result = await api<number>("/project/reorder", { method: "PATCH", body: { ids }, auth: true });
+  if (result.success) refresh();
+  return result;
+};
+
+export const setProjectFeatured = async (id: string, featured: boolean) => {
+  const result = await api<IProject>(`/project/${id}`, { method: "PATCH", body: { featured }, auth: true });
+  if (result.success) refresh();
+  return result;
+};
+
 export const deleteProject = async (id: string) => {
   const result = await api<IProject>(`/project/${id}`, { method: "DELETE", auth: true });
-  if (result.success) refresh();
-  return result;
-};
-
-/* ---------- blogs ---------- */
-
-export type BlogInput = Pick<IBlogs, "title" | "content" | "tags" | "category" | "isPublished" | "thumbnail">;
-
-export const getBlogs = async () => api<IBlogs[]>("/blog?page=1&limit=100");
-
-export const getBlogById = async (id: string) => api<IBlogs>(`/blog/id/${id}`, { auth: true });
-
-export const saveBlog = async (id: string | null, data: BlogInput) => {
-  const result = id
-    ? await api<IBlogs>(`/blog/${id}`, { method: "PATCH", body: data, auth: true })
-    : await api<IBlogs>("/blog/create", { method: "POST", body: data, auth: true });
-  if (result.success) refresh();
-  return result;
-};
-
-export const deleteBlog = async (id: string) => {
-  const result = await api<IBlogs>(`/blog/${id}`, { method: "DELETE", auth: true });
   if (result.success) refresh();
   return result;
 };
@@ -114,3 +105,16 @@ export const deleteMedia = async (id: string, force = false) =>
 
 export const syncMedia = async () =>
   api<{ found: number; added: number }>("/media/sync", { method: "POST", auth: true });
+
+/* ---------- site content ---------- */
+
+export const saveSite = async (data: ISite) => {
+  const result = await api<ISite>("/site", { method: "PUT", body: data, auth: true });
+  if (result.success) refresh();
+  return result;
+};
+
+/* ---------- account ---------- */
+
+export const changePassword = async (currentPassword: string, newPassword: string) =>
+  api<null>("/auth/change-password", { method: "POST", body: { currentPassword, newPassword }, auth: true });

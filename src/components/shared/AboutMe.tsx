@@ -3,16 +3,12 @@
 import SectionTitle from "@/components/ui/SectionTitle";
 import { motion } from "framer-motion";
 import Image from "next/image";
+import type { ISite } from "@/types/siteTypes";
 
-
-export default function About() {
- 
-
+export default function About({ about, name }: { about: ISite["about"]; name: string }) {
   return (
     <section id="about" className="scroll-mt-32 py-10 bg-background">
-   
-      <SectionTitle title="About Me" subtitle=" A journey from curiosity to code, with a passion for building
-            scalable web solutions." />
+      <SectionTitle title="About Me" subtitle={about.subtitle} />
 
       <motion.div
         initial={{ opacity: 0, y: 50, scale: 0.97 }}
@@ -22,62 +18,37 @@ export default function About() {
         className="max-w-7xl mx-auto px-6"
       >
         <div className="flex flex-col xl:flex-row rounded-2xl shadow-xl bg-card border border-border overflow-hidden">
+          {about.image && (
+            <div className="relative w-full xl:w-1/2 aspect-video xl:aspect-auto min-h-[280px]">
+              <Image src={about.image} alt={name} fill sizes="(min-width: 1280px) 50vw, 100vw" className="object-cover" />
+            </div>
+          )}
 
-          <div className="relative w-full xl:w-1/2 aspect-video xl:aspect-auto min-h-[280px]">
-            <Image
-              src="/logo2.png"
-              alt="Yousuf Showrov"
-              fill
-              sizes="(min-width: 1280px) 50vw, 100vw"
-              className="object-cover"
-            />
-          </div>
-
- 
           <div className="flex w-full min-w-72 grow flex-col justify-center gap-6 p-8 md:p-10">
             <div className="space-y-4">
               <h3 className="text-2xl font-bold">My Story</h3>
-              <p className="text-muted-foreground text-base leading-relaxed">
-              Impact-driven Full-stack developer specializing in the MERN stack with a strong foundation in building scalable, secure, and
-user-centric web applications. Skilled in developing end-to-end solutions with clean, responsive user interfaces and robust
-backend systems. Passionate about AWS and cloud technologies and continuous learning. Seeking a remote opportunity to
-contribute to high-impact products.
-              </p>
-
-              <p className="text-muted-foreground text-base leading-relaxed">
-                I started my programming journey with curiosity about how the
-                web works, which quickly turned into a passion for building
-                real-world applications. Over time, I’ve grown into a
-                full-stack developer who enjoys creating scalable, maintainable
-                and user-focused digital products.
-              </p>
-
-  
+              {about.paragraphs.map((paragraph, i) => (
+                <p key={i} className="text-muted-foreground text-base leading-relaxed">
+                  {paragraph}
+                </p>
+              ))}
             </div>
 
-        
-            <div className="flex flex-wrap gap-3 pt-4">
-              {/* <div className="flex items-center gap-2 px-3 py-1.5 rounded-full bg-primary/10 text-primary text-xs font-bold uppercase tracking-wider">
-                💪 Fitness Enthusiast
-              </div> */}
-              {/* <div className="flex items-center gap-2 px-3 py-1.5 rounded-full bg-primary/10 text-primary text-xs font-bold uppercase tracking-wider">
-                ☕ Coffee Powered
-              </div> */}
-              <div className="flex items-center gap-2 px-3 py-1.5 rounded-full bg-primary/10 text-primary text-xs font-bold uppercase tracking-wider">
-               Growth Mindset
+            {about.traits.length > 0 && (
+              <div className="flex flex-wrap gap-3 pt-4">
+                {about.traits.map((trait) => (
+                  <div
+                    key={trait}
+                    className="flex items-center gap-2 px-3 py-1.5 rounded-full bg-primary/10 text-primary text-xs font-bold uppercase tracking-wider"
+                  >
+                    {trait}
+                  </div>
+                ))}
               </div>
-              <div className="flex items-center gap-2 px-3 py-1.5 rounded-full bg-primary/10 text-primary text-xs font-bold uppercase tracking-wider">
-              Adaptability
-              </div>
-              <div className="flex items-center gap-2 px-3 py-1.5 rounded-full bg-primary/10 text-primary text-xs font-bold uppercase tracking-wider">
-              Learning Agility
-              </div>
-            </div>
+            )}
           </div>
         </div>
       </motion.div>
-
-   
     </section>
   );
 }

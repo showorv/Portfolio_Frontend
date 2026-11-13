@@ -6,7 +6,7 @@ export default function MediaPage() {
     <>
       <PageHeader
         title="Media library"
-        description="Every image you have uploaded. Copy a URL here, or pick these images from any project, blog or skill form."
+        description="Every image you have uploaded. Copy a URL here, or pick these images from any project, skill or site content form."
       />
       <MediaBrowser />
     </>

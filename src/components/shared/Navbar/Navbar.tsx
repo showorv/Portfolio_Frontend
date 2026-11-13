@@ -18,7 +18,13 @@ const links = [
   { name: "Contact", id: "contact" },
 ];
 
-export default function Navbar() {
+export default function Navbar({ name }: { name: string }) {
+  const initials = name
+    .split(/\s+/)
+    .map((word) => word[0])
+    .join("")
+    .slice(0, 2)
+    .toUpperCase();
   const pathname = usePathname();
   const onHome = pathname === "/";
   const [scrolled, setScrolled] = useState(false);
@@ -71,10 +77,10 @@ export default function Navbar() {
             whileHover={{ rotate: 12, scale: 1.08 }}
             className="size-8 bg-primary rounded-full flex items-center justify-center text-white text-sm font-bold"
           >
-            YS
+            {initials}
           </motion.div>
           <span className="text-xl font-bold text-foreground group-hover:text-primary transition-colors">
-            Yousuf Showrov
+            {name}
           </span>
         </Link>
 
