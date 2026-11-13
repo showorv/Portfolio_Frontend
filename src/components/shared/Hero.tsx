@@ -87,7 +87,7 @@ export default function Hero() {
 
             <motion.h1 variants={rise} className="text-4xl sm:text-5xl lg:text-6xl font-bold tracking-tight leading-[1.1]">
               Hi, I&apos;m{" "}
-              <span className="bg-gradient-to-r from-primary via-primary to-chart-4 bg-clip-text text-transparent">
+              <span className="bg-primary bg-clip-text text-transparent">
                 Yousuf Showrov
               </span>
             </motion.h1>
